@@ -100,9 +100,12 @@ class Product(models.Model):
             old_discount = Product.objects.filter(pk=self.pk).values_list('discount', flat=True).first()
 
             if self.discount!=old_discount:
-                for p in self.package.all():
+                for p in self.product_package.all():
                     p.final_price = int(p.price - (p.price * self.discount / 100))
                     p.save(update_fields=['final_price'])
+
+        else:
+            self.final_price = int(self.price - (self.price * self.discount / 100))
 
         if not self.slug:
             self.slug = slugify(self.title, allow_unicode=True)
@@ -136,7 +139,7 @@ class Package(models.Model):
     suppliers = models.ManyToManyField(Supplier, related_name="supplier_package")
 
     def save(self, *args, **kwargs):
-        self.final_price = int(self.product.price - (self.product.price * self.product.discount / 100))
+        self.final_price = int(self.price - (self.price * self.product.discount / 100))
         super().save(*args, **kwargs)
 
         min_price = self.product.product_package.aggregate(min=Min('final_price'))['min']
@@ -147,7 +150,7 @@ class Package(models.Model):
             self.product.save()
 
     def __str__(self):
-        return f"Product | {self.product.title} | {self.suppliers.title}"
+        return f"Product | {self.product.title}"
     
     class Meta:
         verbose_name_plural = "Package List"
