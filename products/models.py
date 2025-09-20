@@ -150,7 +150,7 @@ class Package(models.Model):
             self.product.save()
 
     def __str__(self):
-        return f"Product | {self.product.title}"
+        return f"Product | {self.product.title} | {self.color_name}"
     
     class Meta:
         verbose_name_plural = "Package List"

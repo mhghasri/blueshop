@@ -35,15 +35,16 @@ class ProductAdmin(admin.ModelAdmin):
         ("Special Sells", {"fields" : ("special_sells", )}),
         ("Brand", {"fields" : ("brand", )}),
         ("Category", {"fields" : ("categories", )}),
+        ("Supplier", {"fields" : ("suppliers", )}),
     ]
 
-    filter_vertical = ("categories", )
+    filter_vertical = ("categories", "suppliers")
 
 
 # ----------- Packages ----------- #
 
 class PackagesAdmin(admin.ModelAdmin):
-    list_display = ["product", "final_price"]
+    list_display = ["product", "color_name", "final_price"]
 
     fieldsets = [
         ("Product", {'fields' : ("product", )}),

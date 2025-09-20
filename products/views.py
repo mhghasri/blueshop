@@ -3,7 +3,7 @@ from . models import *
 
 # -------------- products -------------- #
 
-def products(request, slug=None):
+def products(request, slug=None, filter_by=None):
 
     # ---------- query ---------- #
     products = Product.objects.all()
@@ -13,21 +13,19 @@ def products(request, slug=None):
 
     # ---------- slug ---------- #
 
-    if slug:
-
-        if slug == "category":
-            category = get_object_or_404(Category, slug=slug)
-            products = products.filter(categories=category)
-
-        elif slug == "brand":
+    if filter_by:
+        
+        if filter_by == "brand":
             brand = get_object_or_404(Brand, slug=slug)
-            products = products.filter(brand=brand)
+            products = products.filter(brand = brand)
 
-        elif slug == "supplier":
+        elif filter_by == "category":
+            category = get_object_or_404(Category, slug=slug)
+            products = products.filter(categories = category)
+
+        elif filter_by == "supplier":
             supplier = get_object_or_404(Supplier, slug=slug)
-            products = products.filter(suppliers=supplier)
-
-    
+            products = products.filter(suppliers = supplier)
 
     # ---------- total ---------- #
 
