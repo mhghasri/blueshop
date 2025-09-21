@@ -235,7 +235,7 @@
         <nav class="flex mt-8" aria-label="Breadcrumb">
             <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                 <li class="inline-flex items-center">
-                    <a href="index.html"
+                    <a href="{% url "index" %}"
                         class="inline-flex items-center text-sm gap-x-1  text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
                         <svg class="size-4 mb-0.5">
                             <use href="#home" />
@@ -266,170 +266,254 @@
                         <p class="font-DanaMedium text-gray-700 dark:text-gray-200 text-lg">فیلترها
                         </p>
                     </span>
-                    <p class="text-blue-500 dark:text-blue-400 text-sm cursor-pointer"> حذف فیلتر‌ها</p>
+                    <a href="{% url "products" %}" class="text-blue-500 dark:text-blue-400 text-sm cursor-pointer"> حذف فیلتر‌ها</a>
                 </div>
                 <!-- FILTERS -->
                 <div class="w-full divide-y divide-slate-200 dark:divide-gray-700/20">
-                    <!-- Accordion -->
-                    <div class="">
-                        <button onclick="toggleAccordion(1)"
+                <!-- Accordion: Category -->
+                <div class="">
+                    <button onclick="toggleAccordion(1)"
                             class="w-full flex justify-between items-center px-2 xl:px-4 pt-4 mb-4 text-gray-800 dark:text-gray-100">
-                            <span>دسته بندی </span>
-                            <span id="icon-1" class="text-gray-800 dark:text-gray-100">
-                                <svg class="size-4 transition-transform duration-300">
-                                    <use href="#chevron-left"></use>
-                                </svg>
-                            </span>
-                        </button>
-                        <div id="content-1" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
-                            <div class="pb-3 text-gray-700 dark:text-gray-300 w-full flex flex-col gap-y-1.5">
-                                <!-- item -->
-                                <div class="inline-flex items-center mr-2.5 mt-1">
-                                    <label class="relative flex cursor-pointer items-center rounded-full p-3"
-                                        for="ripple-on" data-ripple-dark="true">
-                                        <input id="ripple-on" type="checkbox"
-                                            class="peer relative h-5 w-5 cursor-pointer appearance-none rounded border border-slate-300 shadow hover:shadow-md transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-slate-400 before:opacity-0 before:transition-opacity checked:border-blue-500 checked:bg-blue-500 checked:before:bg-slate-400 hover:before:opacity-10 dark:bg-gray-600 dark:checked:bg-blue-500 darKchecked:bg-blue-500  " />
-                                        <span
-                                            class="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5"
-                                                viewBox="0 0 20 20" fill="currentColor" stroke="currentColor"
-                                                stroke-width="1">
-                                                <path fill-rule="evenodd"
-                                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                                    clip-rule="evenodd"></path>
-                                            </svg>
-                                        </span>
-                                    </label>
-                                    <label class="cursor-pointer text-gray-800 dark:text-gray-400 mr-1" for="ripple-on">
-                                        همه کالاها
-                                    </label>
-                                </div>
-                                <!-- item -->
-                                <div class="inline-flex items-center mr-2.5">
-                                    <label class="relative flex cursor-pointer items-center rounded-full p-3"
-                                        for="ripple-2" data-ripple-dark="true">
-                                        <input id="ripple-2" type="checkbox"
-                                            class="peer relative h-5 w-5 cursor-pointer appearance-none rounded border border-slate-300 shadow hover:shadow-md transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-slate-400 before:opacity-0 before:transition-opacity checked:border-blue-500 checked:bg-blue-500 checked:before:bg-slate-400 hover:before:opacity-10 dark:bg-gray-600 dark:checked:bg-blue-500 darKchecked:bg-blue-500  " />
-                                        <span
-                                            class="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5"
-                                                viewBox="0 0 20 20" fill="currentColor" stroke="currentColor"
-                                                stroke-width="1">
-                                                <path fill-rule="evenodd"
-                                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                                    clip-rule="evenodd"></path>
-                                            </svg>
-                                        </span>
-                                    </label>
-                                    <label class="cursor-pointer text-gray-800 dark:text-gray-400 mr-1" for="ripple-2">
-                                        موبایل
-                                    </label>
-                                </div>
-                                <!-- item -->
-                                <div class="inline-flex items-center mr-2.5">
-                                    <label class="relative flex cursor-pointer items-center rounded-full p-3"
-                                        for="ripple-3" data-ripple-dark="true">
-                                        <input id="ripple-3" type="checkbox"
-                                            class="peer relative h-5 w-5 cursor-pointer appearance-none rounded border border-slate-300 shadow hover:shadow-md transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-slate-400 before:opacity-0 before:transition-opacity checked:border-blue-500 checked:bg-blue-500 checked:before:bg-slate-400 hover:before:opacity-10 dark:bg-gray-600 dark:checked:bg-blue-500 darKchecked:bg-blue-500  " />
-                                        <span
-                                            class="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5"
-                                                viewBox="0 0 20 20" fill="currentColor" stroke="currentColor"
-                                                stroke-width="1">
-                                                <path fill-rule="evenodd"
-                                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                                    clip-rule="evenodd"></path>
-                                            </svg>
-                                        </span>
-                                    </label>
-                                    <label class="cursor-pointer text-gray-800 dark:text-gray-400 mr-1" for="ripple-3">
-                                        لپ تاپ
-                                    </label>
-                                </div>
-                                <!-- item -->
-                                <div class="inline-flex items-center mr-2.5">
-                                    <label class="relative flex cursor-pointer items-center rounded-full p-3"
-                                        for="ripple-4" data-ripple-dark="true">
-                                        <input id="ripple-4" type="checkbox"
-                                            class="peer relative h-5 w-5 cursor-pointer appearance-none rounded border border-slate-300 shadow hover:shadow-md transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-slate-400 before:opacity-0 before:transition-opacity checked:border-blue-500 checked:bg-blue-500 checked:before:bg-slate-400 hover:before:opacity-10 dark:bg-gray-600 dark:checked:bg-blue-500 darKchecked:bg-blue-500  " />
-                                        <span
-                                            class="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5"
-                                                viewBox="0 0 20 20" fill="currentColor" stroke="currentColor"
-                                                stroke-width="1">
-                                                <path fill-rule="evenodd"
-                                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                                    clip-rule="evenodd"></path>
-                                            </svg>
-                                        </span>
-                                    </label>
-                                    <label class="cursor-pointer text-gray-800 dark:text-gray-400 mr-1" for="ripple-4">
-                                        هدفون، هدست
-                                    </label>
-                                </div>
+                        <span>دسته بندی</span>
+                        <span id="icon-1" class="text-gray-800 dark:text-gray-100">
+                        <svg class="size-4 transition-transform duration-300">
+                            <use href="#chevron-left"></use>
+                        </svg>
+                        </span>
+                    </button>
+
+                    <div id="content-1" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <div id="cat-filter" class="pb-3 text-gray-700 dark:text-gray-300 w-full flex flex-col gap-y-1.5">
+
+                        <!-- همه دسته بندی ها -->
+                        <div class="inline-flex items-center mr-2.5 mt-1">
+                            <label class="relative flex cursor-pointer items-center rounded-full p-3" for="cat-all" data-ripple-dark="true">
+                                <input id="cat-all" type="checkbox"
+                                    data-href="{% url 'products' %}"
+                                    class="peer relative h-5 w-5 cursor-pointer appearance-none rounded border border-slate-300 shadow hover:shadow-md transition-all
+                                            before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4
+                                            before:rounded-full before:bg-slate-400 before:opacity-0 before:transition-opacity
+                                            checked:border-blue-500 checked:bg-blue-500 checked:before:bg-slate-400 hover:before:opacity-10 dark:bg-gray-600 dark:checked:bg-blue-500" />
+                                <span class="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor" stroke="currentColor" stroke-width="1">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </span>
+                            </label>
+                            <label class="cursor-pointer text-gray-800 dark:text-gray-400 mr-1" for="cat-all">همه دسته بندی ها</label>
+                        </div>
+
+                        {# حلقه‌ی دسته‌بندی‌ها - بدون افزودن عنصر جدید، فقط data-href روی input #}
+                        {% for cat in categories %}
+                            <div class="inline-flex items-center mr-2.5 mt-1">
+                                <label class="relative flex cursor-pointer items-center rounded-full p-3" for="cat-{{ cat.id }}" data-ripple-dark="true">
+                                    <input id="cat-{{ cat.id }}" type="checkbox" name="category" value="{{ cat.slug }}"
+                                    data-href="{% url 'category' cat.slug %}"
+                                    class="peer relative h-5 w-5 cursor-pointer appearance-none rounded border border-slate-300 shadow hover:shadow-md transition-all
+                                            before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4
+                                            before:rounded-full before:bg-slate-400 before:opacity-0 before:transition-opacity
+                                            checked:border-blue-500 checked:bg-blue-500 checked:before:bg-slate-400 hover:before:opacity-10 dark:bg-gray-600 dark:checked:bg-blue-500" />
+                                    <span class="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor" stroke="currentColor" stroke-width="1">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    </span>
+                                </label>
+                                <label class="cursor-pointer text-gray-800 dark:text-gray-400 mr-1" for="cat-{{ cat.id }}">{{ cat.title }}</label>
                             </div>
+                        {% endfor %}
+
                         </div>
                     </div>
-                    <!-- TOGGLE SWITCH -->
+                </div>
+                <!-- Accordion: Brand -->
+                <div class="">
+                    <button onclick="toggleAccordion(2)"
+                            class="w-full flex justify-between items-center px-2 xl:px-4 pt-4 mb-4 text-gray-800 dark:text-gray-100">
+                        <span>برند</span>
+                        <span id="icon-2" class="text-gray-800 dark:text-gray-100">
+                        <svg class="size-4 transition-transform duration-300">
+                            <use href="#chevron-left"></use>
+                        </svg>
+                        </span>
+                    </button>
+
+                    <div id="content-2" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <div id="bra-filter" class="pb-3 text-gray-700 dark:text-gray-300 w-full flex flex-col gap-y-1.5">
+
+                        <!-- همه برندها -->
+                        <div class="inline-flex items-center mr-2.5 mt-1">
+                            <label class="relative flex cursor-pointer items-center rounded-full p-3" for="bra-all" data-ripple-dark="true">
+                            <input id="bra-all" type="checkbox"
+                                    class="peer relative h-5 w-5 cursor-pointer appearance-none rounded border border-slate-300 shadow hover:shadow-md transition-all
+                                            before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4
+                                            before:rounded-full before:bg-slate-400 before:opacity-0 before:transition-opacity
+                                            checked:border-blue-500 checked:bg-blue-500 checked:before:bg-slate-400 hover:before:opacity-10 dark:bg-gray-600 dark:checked:bg-blue-500" />
+                            <span class="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor" stroke="currentColor" stroke-width="1">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                </svg>
+                            </span>
+                            </label>
+                            <label class="cursor-pointer text-gray-800 dark:text-gray-400 mr-1" for="bra-all">همه برندها</label>
+                        </div>
+
+                        <!-- لیست برندها -->
+                        {% for bra in brands %}
+                        <div class="inline-flex items-center mr-2.5 mt-1">
+                            <label class="relative flex cursor-pointer items-center rounded-full p-3" for="bra-{{ bra.id }}" data-ripple-dark="true">
+                            <input id="bra-{{ bra.id }}" type="checkbox" name="brand" value="{{ bra.slug }}"
+                                    class="peer relative h-5 w-5 cursor-pointer appearance-none rounded border border-slate-300 shadow hover:shadow-md transition-all
+                                            before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4
+                                            before:rounded-full before:bg-slate-400 before:opacity-0 before:transition-opacity
+                                            checked:border-blue-500 checked:bg-blue-500 checked:before:bg-slate-400 hover:before:opacity-10 dark:bg-gray-600 dark:checked:bg-blue-500" />
+                            <span class="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor" stroke="currentColor" stroke-width="1">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                </svg>
+                            </span>
+                            </label>
+                            <label class="cursor-pointer text-gray-800 dark:text-gray-400 mr-1" for="bra-{{ bra.id }}">{{ bra.title }}</label>
+                        </div>
+                        {% endfor %}
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Accordion: Suppliers -->
+                <div class="">
+                    <button onclick="toggleAccordion(5)"
+                            class="w-full flex justify-between items-center px-2 xl:px-4 pt-4 mb-4 text-gray-800 dark:text-gray-100">
+                        <span>تامین کننده</span>
+                        <span id="icon-5" class="text-gray-800 dark:text-gray-100">
+                        <svg class="size-4 transition-transform duration-300">
+                            <use href="#chevron-left"></use>
+                        </svg>
+                        </span>
+                    </button>
+
+                    <div id="content-5" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <div id="supplier-filter" class="pb-3 text-gray-700 dark:text-gray-300 w-full flex flex-col gap-y-1.5">
+
+                        <!-- همه برندها -->
+                        <div class="inline-flex items-center mr-2.5 mt-1">
+                            <label class="relative flex cursor-pointer items-center rounded-full p-3" for="supplier-all" data-ripple-dark="true">
+                            <input id="supplier-all" type="checkbox"
+                                    class="peer relative h-5 w-5 cursor-pointer appearance-none rounded border border-slate-300 shadow hover:shadow-md transition-all
+                                            before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4
+                                            before:rounded-full before:bg-slate-400 before:opacity-0 before:transition-opacity
+                                            checked:border-blue-500 checked:bg-blue-500 checked:before:bg-slate-400 hover:before:opacity-10 dark:bg-gray-600 dark:checked:bg-blue-500" />
+                            <span class="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor" stroke="currentColor" stroke-width="1">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                </svg>
+                            </span>
+                            </label>
+                            <label class="cursor-pointer text-gray-800 dark:text-gray-400 mr-1" for="supplier-all">همه تامین کننده ها</label>
+                        </div>
+
+                        <!-- لیست برندها -->
+                        {% for supplier in suppliers %}
+                        <div class="inline-flex items-center mr-2.5 mt-1">
+                            <label class="relative flex cursor-pointer items-center rounded-full p-3" for="supplier-{{ supplier.id }}" data-ripple-dark="true">
+                            <input id="supplier-{{ supplier.id }}" type="checkbox" name="supplier" value="{{ supplier.slug }}"
+                                    class="peer relative h-5 w-5 cursor-pointer appearance-none rounded border border-slate-300 shadow hover:shadow-md transition-all
+                                            before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4
+                                            before:rounded-full before:bg-slate-400 before:opacity-0 before:transition-opacity
+                                            checked:border-blue-500 checked:bg-blue-500 checked:before:bg-slate-400 hover:before:opacity-10 dark:bg-gray-600 dark:checked:bg-blue-500" />
+                            <span class="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor" stroke="currentColor" stroke-width="1">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                </svg>
+                            </span>
+                            </label>
+                            <label class="cursor-pointer text-gray-800 dark:text-gray-400 mr-1" for="supplier-{{ supplier.id }}">{{ supplier.title }}</label>
+                        </div>
+                        {% endfor %}
+
+                        </div>
+                    </div>
+                </div>
+                    <!-- فقط کالاهای موجود -->
                     <div class="w-full justify-between flex items-center gap-x-3 px-2 xl:px-4 py-4" dir="ltr">
-                        <label for="hs-valid-toggle-switch" class="relative inline-block w-11 h-6 cursor-pointer">
-                            <input type="checkbox" id="hs-valid-toggle-switch" class="peer sr-only">
-                            <span
-                                class="absolute inset-0 bg-gray-200 rounded-full transition-colors duration-200 ease-in-out peer-checked:bg-blue-500 dark:bg-neutral-700 dark:peer-checked:bg-blue-500 peer-disabled:opacity-50 peer-disabled:pointer-events-none"></span>
-                            <span
-                                class="absolute top-1/2 start-0.5 -translate-y-1/2 size-5 bg-white rounded-full shadow-xs transition-transform duration-200 ease-in-out peer-checked:translate-x-full dark:bg-neutral-400 dark:peer-checked:bg-white"></span>
+                        <label for="switch-available" class="relative inline-block w-11 h-6 cursor-pointer">
+                            <input type="checkbox"
+                                id="switch-available"
+                                name="only_available"
+                                value="1"
+                                class="peer sr-only"
+                                {% if request.GET.only_available %}checked{% endif %}>
+                            <span class="absolute inset-0 bg-gray-200 rounded-full transition-colors duration-200 ease-in-out
+                                        peer-checked:bg-blue-500 dark:bg-neutral-700 dark:peer-checked:bg-blue-500
+                                        peer-disabled:opacity-50 peer-disabled:pointer-events-none"></span>
+                            <span class="absolute top-1/2 start-0.5 -translate-y-1/2 size-5 bg-white rounded-full shadow-xs
+                                        transition-transform duration-200 ease-in-out
+                                        peer-checked:translate-x-full dark:bg-neutral-400 dark:peer-checked:bg-white"></span>
                         </label>
-                        <label for="hs-valid-toggle-switch" class="text-gray-800 dark:text-gray-100">
+                        <label for="switch-available" class="text-gray-800 dark:text-gray-100">
                             فقط کالا های موجود
                         </label>
                     </div>
-                    <!-- TOGGLE SWITCH -->
+
+                    <!-- فقط تخفیف‌دار -->
                     <div class="w-full justify-between flex items-center gap-x-3 py-4 px-2 xl:px-4" dir="ltr">
-                        <label for="hs-valid-toggle-switch2" class="relative inline-block w-11 h-6 cursor-pointer">
-                            <input type="checkbox" id="hs-valid-toggle-switch2" class="peer sr-only">
-                            <span
-                                class="absolute inset-0 bg-gray-200 rounded-full transition-colors duration-200 ease-in-out peer-checked:bg-blue-500 dark:bg-neutral-700 dark:peer-checked:bg-blue-500 peer-disabled:opacity-50 peer-disabled:pointer-events-none"></span>
-                            <span
-                                class="absolute top-1/2 start-0.5 -translate-y-1/2 size-5 bg-white rounded-full shadow-xs transition-transform duration-200 ease-in-out peer-checked:translate-x-full dark:bg-neutral-400 dark:peer-checked:bg-white"></span>
+                        <label for="switch-discounted" class="relative inline-block w-11 h-6 cursor-pointer">
+                            <input type="checkbox"
+                                id="switch-discounted"
+                                name="only_discounted"
+                                value="1"
+                                class="peer sr-only"
+                                {% if request.GET.only_discounted %}checked{% endif %}>
+                            <span class="absolute inset-0 bg-gray-200 rounded-full transition-colors duration-200 ease-in-out
+                                        peer-checked:bg-blue-500 dark:bg-neutral-700 dark:peer-checked:bg-blue-500
+                                        peer-disabled:opacity-50 peer-disabled:pointer-events-none"></span>
+                            <span class="absolute top-1/2 start-0.5 -translate-y-1/2 size-5 bg-white rounded-full shadow-xs
+                                        transition-transform duration-200 ease-in-out
+                                        peer-checked:translate-x-full dark:bg-neutral-400 dark:peer-checked:bg-white"></span>
                         </label>
-                        <label for="hs-valid-toggle-switch2"
-                            class="text-gray-800 dark:text-gray-100 flex items-center gap-x-2">
+                        <label for="switch-discounted" class="text-gray-800 dark:text-gray-100 flex items-center gap-x-2">
                             <img class="size-5" src="{% static 'main/images/svg/time.png' %}" alt="">
-                            ارسال امروز
+                            فقط تخفیف دار
                         </label>
                     </div>
                     <!-- Accordion -->
                     <div class="">
-                        <button onclick="toggleAccordion(2)"
-                            class="w-full flex justify-between items-center px-2 xl:px-4 py-4 text-gray-800 dark:text-gray-100">
+                        <button onclick="toggleAccordion(3)"
+                                class="w-full flex justify-between items-center px-2 xl:px-4 py-4 text-gray-800 dark:text-gray-100">
                             <span>محدوده قیمت</span>
-                            <span id="icon-1" class="text-gray-800 dark:text-gray-100">
-                                <svg class="size-4 transition-transform duration-300">
-                                    <use href="#chevron-left"></use>
-                                </svg>
+                            <span id="icon-3" class="text-gray-800 dark:text-gray-100">
+                            <svg class="size-4 transition-transform duration-300">
+                                <use href="#chevron-left"></use>
+                            </svg>
                             </span>
                         </button>
-                        <div id="content-2" class="price-slider max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+
+                        <div id="content-3" class="price-slider max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
                             <div class="pb-3 text-gray-700 dark:text-gray-300 w-full px-4">
-                                <div class="wrapper mt-5">
-                                    <div class="slider-bar">
-                                        <div class="progress"></div>
-                                    </div>
-                                    <div class="range-input">
-                                        <input type="range" min="0" max="100000" value="0" class="min-range" />
-                                        <input type="range" min="0" max="100000" value="35000" class="max-range" />
-                                    </div>
-                                    <div class="price-input mt-4 text-gray-800 dark:text-gray-500">
-                                        <div class="field justify-start">
-                                            <span class="text-sm font-DanaMedium mr-2">تومان</span>
-                                            <p class="min-input">0</p>
-                                        </div>
-                                        <div class="field justify-end">
-                                            <span class="text-sm font-DanaMedium mr-2">تومان</span>
-                                            <p class="max-input">350,000</p>
-                                        </div>
-                                    </div>
+                            <div class="wrapper mt-5">
+                                <div class="slider-bar">
+                                <div class="progress"></div>
                                 </div>
+
+                                <div class="range-input">
+                                <input type="range" min="0" max="200000000" value="0"
+                                        class="min-range" name="min_price_range" />
+                                <input type="range" min="0" max="200000000" value="200000000"
+                                        class="max-range" name="max_price_range" />
+                                </div>
+
+                                <div class="price-input mt-4 text-gray-800 dark:text-gray-500">
+                                <div class="field justify-start">
+                                    <span class="text-sm font-DanaMedium mr-2">تومان</span>
+                                    <p class="min-input">0</p>
+                                </div>
+                                <div class="field justify-end">
+                                    <span class="text-sm font-DanaMedium mr-2">تومان</span>
+                                    <p class="max-input">200,000,000</p>
+                                </div>
+                                </div>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -719,13 +803,13 @@
                         </svg>
                         <h2 class="font-DanaDemiBold text-gray-400">مرتب سازی :</h2>
                     </div>
-                    <ul
-                        class="flex items-center gap-x-1 lg:gap-x-4 child:transition-all child:cursor-pointer child:rounded-lg child:px-1 child:py-1 child:text-sm child:lg:text-base">
-                        <li class="text-blue-500">محبوب ترین</li>
-                        <li class="text-gray-400">پرفروش ترین</li>
-                        <li class="text-gray-400">ارزان ترین</li>
-                        <li class="text-gray-400">گران ترین</li>
-                    </ul>
+                    <ul id="sortList"
+                            class="flex items-center gap-x-1 lg:gap-x-4 child:transition-all child:cursor-pointer child:rounded-lg child:px-1 child:py-1 child:text-sm child:lg:text-base">
+                            <li data-sort="newest" class="text-gray-400">جدیدترین</li>
+                            <li data-sort="oldest" class="text-gray-400">قدیمی‌ترین</li>
+                            <li data-sort="cheap" class="text-gray-400">ارزانترین</li>
+                            <li data-sort="expensive" class="text-gray-400">گرانترین</li>
+                        </ul>
                    </div>
                     <span class="text-sm text-gray-400 end">{{ total | currency}} کالا </span>
                 </div>
@@ -850,3 +934,7 @@
         </div>
     </main>
 {% endblock main %}
+
+{% block js %}
+<script src="{% static "main/custom_scripts/products.js" %}"></script>
+{% endblock js %}

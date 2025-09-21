@@ -38,13 +38,22 @@
                 <!-- Search Box -->
                 <div class="relative z-20">
                     <!-- INPUT -->
-                    <div
-                        class="search-btn-open flex gap-x-2 app-border bg-gray-50 dark:bg-gray-700 p-1 rounded-full cursor-pointer ring-blue-400 w-84 transition-all">
-                        <svg class="size-6 p-1.5 flex-center text-gray-100 bg-blue-600 rounded-full w-9 h-9">
-                            <use href="#search" />
-                        </svg>
-                        <input placeholder="جستجو در کارین..." type="text">
-                    </div>
+                    <form method="get" action="">
+                        <div class="search-btn-open flex gap-x-2 app-border bg-gray-50 dark:bg-gray-700 p-1 rounded-full ring-blue-400 w-84 transition-all">
+                            <button type="submit"
+                                class="flex-center text-gray-100 bg-blue-600 rounded-full w-11 h-11 flex items-center justify-center">
+                                <svg class="w-6 h-6">
+                                    <use href="#search"></use>
+                                </svg>
+                            </button>
+                            <input
+                                type="text"
+                                name="q"
+                                placeholder="جستجو در بلو..."
+                                class="bg-transparent outline-none flex-1"
+                            >
+                        </div>
+                    </form>
                     <!-- Search Modal -->
                     <div class="search-modal space-y-4">
                         <!-- Result -->
