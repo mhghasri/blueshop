@@ -158,7 +158,7 @@ class Package(models.Model):
 # --------- ImageGallery Model --------- #
 
 class ImageGallery(models.Model):
-    iamge = models.ImageField(upload_to=product_gallery_path)
+    image = models.ImageField(upload_to=product_gallery_path)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="imagegallery")
 
 # --------- Attribute Model --------- #

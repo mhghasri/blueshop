@@ -142,7 +142,38 @@ def products(request, slug=None):
 # -------------- product-detail -------------- #
 
 def product_detail(request, **kwargs):
+
+    # all products for special sells and other
+
+    products = Product.objects.all()
+
+    # for selected product
+
+    product = get_object_or_404(Product.objects.select_related('brand').prefetch_related('categories', 'product_package', 'imagegallery', 'attribute'), pk=kwargs['pk'])
+
+    # related product
+
+    related_product = products.filter(categories__slug=product.categories.last().slug).exclude(pk=product.id).order_by('-created_at')
+
+    # discounted product
+
+    discounted_product = products.filter(discount__gt = 0).exclude(pk=product.id)
+
     context = {
+
+        "products" : products,
+
+        'product' : product,
+
+        'attributes' : product.attribute.all(),
+
+        'imagegallery' : product.imagegallery.all(),
+
+        'packages' : product.product_package.all(),
+
+        'related_product' : related_product,
+        
+        'discounted_product' : discounted_product,
 
     }
 
