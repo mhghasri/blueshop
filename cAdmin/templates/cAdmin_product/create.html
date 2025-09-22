@@ -1,6 +1,17 @@
 {% extends "cadmin_core/base.html" %}
 {% load static %}
 
+{% block style %}
+	<link rel="icon" type="image/png" href="https://ckeditor.com/assets/images/favicons/32x32.png" sizes="32x32">
+	<link rel="icon" type="image/png" href="https://ckeditor.com/assets/images/favicons/96x96.png" sizes="96x96">
+	<link rel="apple-touch-icon" type="image/png" href="https://ckeditor.com/assets/images/favicons/120x120.png" sizes="120x120">
+	<link rel="apple-touch-icon" type="image/png" href="https://ckeditor.com/assets/images/favicons/152x152.png" sizes="152x152">
+	<link rel="apple-touch-icon" type="image/png" href="https://ckeditor.com/assets/images/favicons/167x167.png" sizes="167x167">
+	<link rel="apple-touch-icon" type="image/png" href="https://ckeditor.com/assets/images/favicons/180x180.png" sizes="180x180">
+	<link rel="stylesheet" href="{% static 'cadmin/ckEditor/style.css' %}">
+	<link rel="stylesheet" href="{% static 'cadmin/ckEditor/ckeditor5/ckeditor5.css' %}">
+{% endblock style %}
+
 {% block header %}
 	<div class="header-body">
 
@@ -307,52 +318,83 @@
 					<div class="col-md-6">
 						<div class="card">
 							<div class="card-body">
+								<h6 class="card-title">قیمت محصول</h6>
+								<div class="form-group">
+									<label for="productprice">قیمت پایه</label>
+									<input name="price" type="number" class="form-control text-left" id="productprice" aria-describedby="ProductpriceHelp" placeholder="قیمت محصول" dir="ltr">
+									<small id="ProductpriceHelp" class="form-text text-muted">قیمت به تومان باید باشد
+									</small>
+								</div>
+								<div class="form-group">
+									<label for="discount">تخفیف</label>
+									<input name="discount" type="number" class="form-control text-left" id="discount" aria-describedby="ProductdiscountHelp" placeholder="تخفیف محصول" dir="ltr">
+									<small id="ProductdiscountHelp" class="form-text text-muted">فقط عدد وارد کنید نیازی به علامت درصد % نیست مثلا 10
+									</small>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="card">
+							<div class="card-body">
+								<h6 class="card-title">تصاویر محصول</h6>
+								<div class="form-group">
+									<label for="image_1">تصویر اول</label>
+									<input name="image_1" type="file" class="d-none" id="image_1" accept="image/jpeg, image/png, image/webp" aria-describedby="Productimage_1Help">
+									
+									<label class="btn btn-primary" for="image_1">انتخاب تصویر</label>
+									
+									<span id="file-name-1" class="ml-2 text-muted">فایلی انتخاب نشده</span>
+									
+									<small id="Productimage_1Help" class="form-text text-muted mt-2">فرمت باید به شکل jpg | png | webp باشد</small>
+								</div>
+								<div class="form-group">
+									<label for="image_2">تصویر دوم</label>
+									<input name="image_2" type="file" class="d-none" id="image_2" accept="image/jpeg, image/png, image/webp" aria-describedby="Productimage_2Help">
+									<label class="btn btn-primary" for="image_2">انتخاب تصویر</label>
+									<span id="file-name-2" class="ml-2 text-muted">فایلی انتخاب نشده</span>
+									<small id="Productimage_2Help" class="form-text text-muted mt-2">فرمت باید به شکل jpg | png | webp باشد</small>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="card">
+							<div class="card-body">
+								<h6 class="card-title">فروش ویژه / موجودیت</h6>
+								
+								<div class="form-check mb-3">
+									<input name="special_sells" type="checkbox" class="form-check-input" id="special_sells">
+									<label class="form-check-label" for="special_sells">آیا محصول در فروش ویژه میباشد؟</label>
+									<small id="Productspecial_sellsHelp" class="form-text text-muted">این گزینه فعال باشد، محصول در بخش فروش ویژه نمایش داده می‌شود.</small>
+								</div>
+								
+								<hr>
+								
+								<div class="form-check">
+									<input name="is_available" type="checkbox" class="form-check-input" id="is_available" checked>
+									<label class="form-check-label" for="is_available">آیا محصول موجود میباشد؟</label>
+									<small id="Productis_availableHelp" class="form-text text-muted">این گزینه فعال باشد، محصول به عنوان موجود در نظر گرفته می‌شود.</small>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-body">
 								<h6 class="card-title">معرفی محصول</h6>
-								<div class="form-group">
-									<label for="description">توضیحات محصول</label>
-									<textarea name="description" rows="5" class="form-control text-left" id="description" aria-describedby="ProductdescriptionHelp" placeholder="توضیحات محصول" dir="ltr"></textarea>
-									<small id="ProductdescriptionHelp" class="form-text text-muted">تا 500 کلمه</small>
+								<div class="main-container">
+								<div
+									class="editor-container editor-container_classic-editor editor-container_include-word-count editor-container_include-fullscreen"
+									id="editor-container"
+								>
+										<div class="editor-container__editor"><div id="editor"></div></div>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					<div class="col-md-6">
-						<div class="card">
-							<div class="card-body">
-								<h6 class="card-title">قیمت محصول</h6>
-								<div class="form-group">
-									<label for="productprice">قیمت پایه</label>
-									<input name="price" type="number" class="form-control text-left" id="productprice" aria-describedby="ProductpriceHelp" placeholder="قیمت محصول" dir="ltr">
-									<small id="ProductpriceHelp" class="form-text text-muted">قیمت به تومان باید باشد
-									</small>
-								</div>
-								<div class="form-group">
-									<label for="discount">تخفیف</label>
-									<input name="discount" type="text" class="form-control text-left" id="discount" aria-describedby="ProductdiscountHelp" placeholder="تخفیف محصول" dir="ltr">
-									<small id="ProductdiscountHelp" class="form-text text-muted">فقط عدد وارد کنید نیازی به علامت درصد % نیست مثلا 10
-									</small>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-6">
-						<div class="card">
-							<div class="card-body">
-								<h6 class="card-title">قیمت محصول</h6>
-								<div class="form-group">
-									<label for="productprice">قیمت پایه</label>
-									<input name="price" type="number" class="form-control text-left" id="productprice" aria-describedby="ProductpriceHelp" placeholder="قیمت محصول" dir="ltr">
-									<small id="ProductpriceHelp" class="form-text text-muted">قیمت به تومان باید باشد
-									</small>
-								</div>
-								<div class="form-group">
-									<label for="discount">تخفیف</label>
-									<input name="discount" type="text" class="form-control text-left" id="discount" aria-describedby="ProductdiscountHelp" placeholder="تخفیف محصول" dir="ltr">
-									<small id="ProductdiscountHelp" class="form-text text-muted">فقط عدد وارد کنید نیازی به علامت درصد % نیست مثلا 10
-									</small>
-								</div>
-							</div>
-						</div>
+						<textarea name="description" id="hidden-description" style="display:none;"></textarea>
 					</div>
 				</div>
 			</form>
@@ -361,3 +403,25 @@
 	</main>
 	<!-- end::main content -->
 {% endblock main %}
+
+{% block js %}
+	<script type="importmap">
+			{
+				"imports": {
+					"ckeditor5": "{% static 'cadmin/ckEditor/ckeditor5/ckeditor5.js' %}",
+					"ckeditor5/": "{% static 'cadmin/ckEditor/ckeditor5/' %}"
+				}
+			}
+	</script>
+	<script type="module" src="{% static 'cadmin/ckEditor/main.js' %}"></script>
+	<!-- A friendly reminder to run on a server, remove this during the integration. -->
+	<script>
+		window.onload = function() {
+			if ( window.location.protocol === "file:" ) {
+				alert( "This sample requires an HTTP server. Please serve this file with a web server." );
+			}
+		};
+	</script>
+	<script src="{% static 'cadmin/custom_js/main.js' %}"></script>
+
+{% endblock js %}
