@@ -77,12 +77,26 @@ def products(request, slug=None):
 
         products = products.filter(brand__slug=brand_params)
 
-    # ---------- paginator ---------- #
+    # ---------- supplier ---------- #
 
     supplier_params = request.GET.get('supplier')
 
     if supplier_params:
         products = products.filter(suppliers__slug=supplier_params)
+
+    # ---------- color filter ---------- #
+
+    packages = Package.objects.all()
+
+    colors = set()
+
+    for package in packages:
+        colors.add((package.color_hex, package.color_name))
+
+    color_params = request.GET.get('color')
+
+    if color_params:
+        products = products.filter(product_package__color_name=color_params).distinct()     # این متد برای اینه که وقتی join زده میشه این میره فقط محصولات منحصر به فرد رو میاره
 
     # ---------- paginator ---------- #
 
@@ -113,6 +127,8 @@ def products(request, slug=None):
         "categories" : categories,
 
         "suppliers" : suppliers,
+
+        "colors" : colors,
 
         # paginator
         'base_url' : f"?{query_string}&" if query_string else "?",
