@@ -208,61 +208,265 @@ if (minRange && maxRange && content) {
 })();
 
 // <!--filters category and ... accardion-->
-
+// تابع عمومی برای باز و بسته کردن آکاردئون‌ها
+function toggleAccordion(id) {
+    const panel = document.getElementById('content-' + id);
+    const icon  = document.getElementById('icon-' + id);
+    if (!panel) return;
+    const isOpen = panel.style.maxHeight && panel.style.maxHeight !== '0px';
+    if (isOpen) {
+        panel.style.maxHeight = '0px';
+        if (icon) icon.firstElementChild?.classList.remove('rotate-90');
+        panel.setAttribute('aria-expanded', 'false');
+    } else {
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+        if (icon) icon.firstElementChild?.classList.add('rotate-90');
+        panel.setAttribute('aria-expanded', 'true');
+    }
+}
+ 
 document.addEventListener('DOMContentLoaded', function () {
  
-    // تابع عمومی برای باز و بسته کردن آکاردئون‌ها (بدون تغییر)
-    function toggleAccordion(id) {
-        const panel = document.getElementById('content-' + id);
-        const icon  = document.getElementById('icon-' + id);
-        if (!panel) return;
-        const isOpen = panel.style.maxHeight && panel.style.maxHeight !== '0px';
-        if (isOpen) {
-            panel.style.maxHeight = '0px';
-            if (icon) icon.firstElementChild?.classList.remove('rotate-90');
-            panel.setAttribute('aria-expanded', 'false');
-        } else {
+    // ===== بخش فیلتر دسته‌بندی (تک‌انتخابی) =====
+    (function handleCategoryInAccordion() {
+        const accId     = 1;
+        const panel     = document.getElementById('content-' + accId);
+        const icon      = document.getElementById('icon-' + accId);
+        const container = document.querySelector('#cat-filter');
+        const allBox    = document.getElementById('cat-all');
+        if (!panel || !container || !allBox) return;
+        const boxes = Array.from(container.querySelectorAll('input[type="checkbox"][name="category"]')).filter(el => el !== allBox);
+        const norm = (u) => new URL(u, location.origin).pathname.replace(/\/+$/, '/');
+        const currentPath  = norm(location.href);
+        const productsPath = norm(allBox.dataset.href);
+        let hasSelection = false;
+        boxes.forEach(b => {
+            const bp = norm(b.dataset.href || '');
+            const matched = bp && (bp === currentPath);
+            b.checked = matched;
+            hasSelection = hasSelection || matched;
+        });
+        allBox.checked = !hasSelection || (currentPath === productsPath);
+        if (hasSelection) {
             panel.style.maxHeight = panel.scrollHeight + 'px';
-            if (icon) icon.firstElementChild?.classList.add('rotate-90');
             panel.setAttribute('aria-expanded', 'true');
+            if (icon) icon.firstElementChild?.classList.add('rotate-90');
+        } else {
+            panel.style.maxHeight = '0px';
+            panel.setAttribute('aria-expanded', 'false');
+            if (icon) icon.firstElementChild?.classList.remove('rotate-90');
         }
-    }
+        const totalItems = boxes.length + 1;
+        if (totalItems > 4) {
+            container.style.overflowY = 'auto';
+            const sampleDiv = (boxes[0] || allBox)?.closest('div.inline-flex');
+            const itemH = sampleDiv ? sampleDiv.offsetHeight : 44;
+            container.style.maxHeight = (itemH * 4) + 'px';
+        } else {
+            container.style.overflowY = '';
+            container.style.maxHeight = '';
+        }
+        allBox.addEventListener('change', () => {
+            if (allBox.checked) {
+                const href = allBox.dataset.href;
+                if (href) location.assign(href);
+            } else {
+                if (!boxes.some(x => x.checked)) allBox.checked = true;
+            }
+        });
+        boxes.forEach(b => b.addEventListener('change', () => {
+            if (b.checked) {
+                boxes.forEach(x => { if (x !== b) x.checked = false; });
+                allBox.checked = false;
+                const href = b.dataset.href;
+                if (href) location.assign(href);
+            } else {
+                if (!boxes.some(x => x.checked)) {
+                    allBox.checked = true;
+                    const href = allBox.dataset.href;
+                    if (href) location.assign(href);
+                }
+            }
+        }));
+    })();
  
-    // ===== بخش فیلتر رنگ (تک‌انتخابی) - کد نهایی =====
+    // ===== بخش فیلتر برند (تک‌انتخابی) - بدون تغییر =====
+    (function handleBrandAccordion() {
+        const panelBra = document.getElementById('content-2');
+        const iconWrapBra = document.getElementById('icon-2');
+        const containerBra = document.getElementById('bra-filter');
+        const allBoxBra = document.getElementById('bra-all');
+        if (!panelBra || !containerBra || !allBoxBra) return;
+        const boxesBra = Array.from(containerBra.querySelectorAll('input[type="checkbox"][name="brand"]'));
+        const paramsBra = new URLSearchParams(location.search);
+        const currentBra = paramsBra.get('brand');
+        let hasSelectionBra = false;
+        if (currentBra) {
+            boxesBra.forEach(b => b.checked = (b.value === currentBra));
+            allBoxBra.checked = false;
+            hasSelectionBra = true;
+        } else {
+            boxesBra.forEach(b => b.checked = false);
+            allBoxBra.checked = true;
+            hasSelectionBra = false;
+        }
+        if (hasSelectionBra) {
+            panelBra.style.maxHeight = panelBra.scrollHeight + 'px';
+            panelBra.setAttribute('aria-expanded', 'true');
+            iconWrapBra?.firstElementChild?.classList.add('rotate-90');
+        } else {
+            panelBra.style.maxHeight = '0px';
+            panelBra.setAttribute('aria-expanded', 'false');
+            iconWrapBra?.firstElementChild?.classList.remove('rotate-90');
+        }
+        const totalItemsBra = boxesBra.length + 1;
+        if (totalItemsBra > 4) {
+            containerBra.style.overflowY = 'auto';
+            const sampleDivBra = (boxesBra[0] || allBoxBra)?.closest('div.inline-flex');
+            const itemH = sampleDivBra ? sampleDivBra.offsetHeight : 44;
+            containerBra.style.maxHeight = (itemH * 4) + 'px';
+        } else {
+            containerBra.style.overflowY = '';
+            containerBra.style.maxHeight = '';
+        }
+        allBoxBra.addEventListener('change', () => {
+            if (allBoxBra.checked) {
+                boxesBra.forEach(b => b.checked = false);
+                const p = new URLSearchParams(location.search);
+                p.delete('brand');
+                p.delete('page');
+                const q = p.toString();
+                location.assign(location.pathname + (q ? '?' + q : ''));
+            } else {
+                if (!boxesBra.some(x => x.checked)) allBoxBra.checked = true;
+            }
+        });
+        boxesBra.forEach(b => b.addEventListener('change', () => {
+            if (b.checked) {
+                boxesBra.forEach(x => { if (x !== b) x.checked = false; });
+                allBoxBra.checked = false;
+                const p = new URLSearchParams(location.search);
+                p.set('brand', b.value);
+                p.delete('page');
+                const q = p.toString();
+                location.assign(location.pathname + (q ? '?' + q : ''));
+            } else {
+                if (!boxesBra.some(x => x.checked)) {
+                    allBoxBra.checked = true;
+                    const p = new URLSearchParams(location.search);
+                    p.delete('brand');
+                    p.delete('page');
+                    const q = p.toString();
+                    location.assign(location.pathname + (q ? '?' + q : ''));
+                }
+            }
+        }));
+    })();
+ 
+    // ===== بخش فیلتر تأمین‌کننده (تک‌انتخابی) - کد نهایی با اسکرول =====
+    (function handleSupplierAccordion() {
+    const panelSup = document.getElementById('content-5');
+    const iconWrapSup = document.getElementById('icon-5');
+    const containerSup = document.getElementById('supplier-filter');
+    const allBoxSup = document.getElementById('supplier-all');
+    if (!panelSup || !containerSup || !allBoxSup) return;
+    const boxesSup = Array.from(containerSup.querySelectorAll('input[type="checkbox"][name="supplier"]'));
+    const paramsSup = new URLSearchParams(location.search);
+    const currentSup = paramsSup.get('supplier');
+    let hasSelectionSup = false;
+    if (currentSup) {
+        boxesSup.forEach(b => b.checked = (b.value === currentSup));
+        allBoxSup.checked = false;
+        hasSelectionSup = true;
+    } else {
+        boxesSup.forEach(b => b.checked = false);
+        allBoxSup.checked = true;
+        hasSelectionSup = false;
+    }
+    if (hasSelectionSup) {
+        panelSup.style.maxHeight = panelSup.scrollHeight + 'px';
+        panelSup.setAttribute('aria-expanded', 'true');
+        iconWrapSup?.firstElementChild?.classList.add('rotate-90');
+    } else {
+        panelSup.style.maxHeight = '0px';
+        panelSup.setAttribute('aria-expanded', 'false');
+        iconWrapSup?.firstElementChild?.classList.remove('rotate-90');
+    }
+
+    // اینجا محل قرار دادن کد اسکرول هست. 
+    // این کد باید قبل از addEventListenerها قرار بگیره.
+    const totalItemsSup = boxesSup.length + 1;
+    if (totalItemsSup > 5) {
+        containerSup.style.overflowY = 'auto';
+        const sampleDivSup = (boxesSup[0] || allBoxSup)?.closest('div.inline-flex');
+        const itemH = sampleDivSup ? sampleDivSup.offsetHeight : 44;
+        containerSup.style.maxHeight = (itemH * 5) + 'px';
+    } else {
+        containerSup.style.overflowY = '';
+        containerSup.style.maxHeight = '';
+    }
+
+    allBoxSup.addEventListener('change', () => {
+        if (allBoxSup.checked) {
+            boxesSup.forEach(b => b.checked = false);
+            const p = new URLSearchParams(location.search);
+            p.delete('supplier');
+            p.delete('page');
+            const q = p.toString();
+            location.assign(location.pathname + (q ? '?' + q : ''));
+        } else {
+            if (!boxesSup.some(x => x.checked)) allBoxSup.checked = true;
+        }
+    });
+    boxesSup.forEach(b => b.addEventListener('change', () => {
+        if (b.checked) {
+            boxesSup.forEach(x => { if (x !== b) x.checked = false; });
+            allBoxSup.checked = false;
+            const p = new URLSearchParams(location.search);
+            p.set('supplier', b.value);
+            p.delete('page');
+            const q = p.toString();
+            location.assign(location.pathname + (q ? '?' + q : ''));
+        } else {
+            if (!boxesSup.some(x => x.checked)) {
+                allBoxSup.checked = true;
+                const p = new URLSearchParams(location.search);
+                p.delete('supplier');
+                p.delete('page');
+                const q = p.toString();
+                location.assign(location.pathname + (q ? '?' + q : ''));
+            }
+        }
+    }));
+})();
+ 
+    // ===== بخش فیلتر رنگ (تک‌انتخابی) - با اسکرول =====
     (function handleSingleColorFilter() {
         const container = document.getElementById('color-filter');
         if (!container) return;
- 
         const allColorsCheckbox = document.getElementById('color-all');
         const colorCheckboxes = Array.from(container.querySelectorAll('input[type="checkbox"][name="color"]'));
         const panel = document.getElementById('content-6');
         const icon = document.getElementById('icon-6');
+        const urlParams = new URLSearchParams(location.search);
+        const urlColor = urlParams.get('color');
  
-        // تابع برای همگام‌سازی وضعیت چک‌باکس‌ها با URL
-        const syncCheckboxesWithUrl = () => {
-            const params = new URLSearchParams(location.search);
-            const urlColor = params.get('color'); // از get() برای یک مقدار استفاده می‌کنیم
+        if (urlColor) {
+            allColorsCheckbox.checked = false;
+            colorCheckboxes.forEach(cb => {
+                cb.checked = (cb.value === urlColor);
+            });
+            if (panel) toggleAccordion(6);
+        } else {
+            allColorsCheckbox.checked = true;
+            colorCheckboxes.forEach(cb => cb.checked = false);
+            if (panel) panel.style.maxHeight = '0px';
+            if (icon) icon.firstElementChild?.classList.remove('rotate-90');
+        }
  
-            if (urlColor) {
-                allColorsCheckbox.checked = false;
-                colorCheckboxes.forEach(cb => {
-                    cb.checked = (cb.value === urlColor);
-                });
-                if (panel) toggleAccordion(6);
-            } else {
-                allColorsCheckbox.checked = true;
-                colorCheckboxes.forEach(cb => cb.checked = false);
-                if (panel) panel.style.maxHeight = '0px';
-                if (icon) icon.firstElementChild?.classList.remove('rotate-90');
-            }
-        };
- 
-        // رویداد شنونده برای چک‌باکس "همه رنگ‌ها"
         allColorsCheckbox.addEventListener('change', () => {
             if (allColorsCheckbox.checked) {
-                // تمام چک‌باکس‌های رنگی دیگر را از انتخاب خارج کن
                 colorCheckboxes.forEach(cb => cb.checked = false);
-                // URL را پاک کن
                 const p = new URLSearchParams(location.search);
                 p.delete('color');
                 p.delete('page');
@@ -270,20 +474,16 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
  
-        // رویداد شنونده برای چک‌باکس‌های رنگی
         colorCheckboxes.forEach(cb => {
             cb.addEventListener('change', () => {
                 if (cb.checked) {
-                    // تمام چک‌باکس‌های دیگر را از انتخاب خارج کن
                     colorCheckboxes.filter(c => c !== cb).forEach(c => c.checked = false);
                     allColorsCheckbox.checked = false;
-                    // URL را بر اساس رنگ انتخاب‌شده به‌روزرسانی کن
                     const p = new URLSearchParams(location.search);
                     p.set('color', cb.value);
                     p.delete('page');
                     location.assign(location.pathname + (p.toString() ? '?' + p.toString() : ''));
                 } else {
-                    // اگر هیچ چک‌باکسی تیک نخورده بود، به حالت "همه" برگرد
                     if (!colorCheckboxes.some(checkbox => checkbox.checked)) {
                         allColorsCheckbox.checked = true;
                         const p = new URLSearchParams(location.search);
@@ -295,25 +495,12 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
  
-        // همگام‌سازی اولیه در هنگام بارگذاری صفحه
-        syncCheckboxesWithUrl();
- 
-        // باز کردن آکاردئون هنگام بارگذاری صفحه
-        window.addEventListener('load', () => {
-            const params = new URLSearchParams(location.search);
-            if (params.get('color') && panel) {
-                panel.style.maxHeight = panel.scrollHeight + 'px';
-                if (icon) icon.firstElementChild?.classList.add('rotate-90');
-            }
-        });
-        // مدیریت اسکرول داخلی برای آیتم‌های زیاد
         const totalItems = colorCheckboxes.length;
-        if (totalItems > 5) { // تغییر عدد از 3 به 5
+        if (totalItems > 5) {
             container.style.overflowY = 'auto';
-            // سعی می‌کنیم ارتفاع واقعی آیتم را بگیریم؛ اگر نشد، ۴۴px
             const sampleDiv = colorCheckboxes[0]?.closest('div.inline-flex');
             const itemH = sampleDiv ? sampleDiv.offsetHeight : 44;
-            container.style.maxHeight = (itemH * 5) + 'px'; // تغییر عدد از 3 به 5
+            container.style.maxHeight = (itemH * 5) + 'px';
         } else {
             container.style.overflowY = '';
             container.style.maxHeight = '';
