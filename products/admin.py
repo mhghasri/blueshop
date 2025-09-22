@@ -30,7 +30,7 @@ class ProductAdmin(admin.ModelAdmin):
     inlines = [AttributeInline, ImageGalleryInline]
 
     fieldsets = [
-        ("Information", {"fields" : ("title", "full_detail", "desciption", "image_1", "image_2", "is_available")}),
+        ("Information", {"fields" : ("title", "full_detail", "description", "image_1", "image_2", "is_available")}),
         ("Price", {"fields" : ("price", "discount")}),
         ("Special Sells", {"fields" : ("special_sells", )}),
         ("Brand", {"fields" : ("brand", )}),

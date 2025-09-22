@@ -8,7 +8,8 @@ from . views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name="index"),
-    path('', include("products.urls"))
+    path('', include("products.urls")),
+    path('cadmin/', include("cAdmin.urls"))
 ]
 
 if settings.DEBUG:

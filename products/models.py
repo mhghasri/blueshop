@@ -80,7 +80,7 @@ class Supplier(models.Model):
 class Product(models.Model):
     title = models.CharField(max_length=100)
     full_detail = models.CharField(max_length=255)
-    desciption = models.TextField(blank=True)
+    description = models.TextField(blank=True)
     price = models.IntegerField()
     discount = models.IntegerField(default=0)
     final_price = models.IntegerField()
