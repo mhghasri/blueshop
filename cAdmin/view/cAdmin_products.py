@@ -61,5 +61,28 @@ def create_product(request):
         product.suppliers.set(selected_suppliers_ids)
 
 
+        # handdle image gallery
+        gallery_images = request.FILES.getlist('gallery_images')
+        for image_file in gallery_images:
+            ImageGallery.objects.create(
+                image = image_file,
+                product = product
+            )
+
+        # handdle attributes
+        attribute_titles = request.POST.getlist('attribute_titles')
+        attribute_values = request.POST.getlist('attribute_values')
+
+        # make sure value len and title len are equal
+        if len(attribute_titles) == len(attribute_values):
+            for i in range(len(attribute_titles)):
+                if attribute_titles[i] and attribute_values[i]: # make sure they are not empty
+                    Attribute.objects.create(
+                        title = attribute_titles[i],
+                        value = attribute_values[i],
+                        product = product
+                    )
+
+
 
     return render(request, "cAdmin_product/create.html", context)

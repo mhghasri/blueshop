@@ -441,9 +441,7 @@
 					<a href="#">فرم ها</a>
 					<ul>
 						<li><a href="{% url 'cadmin_create_product' %}" {% if request.resolver_match.url_name == 'cadmin_create_product' %}class="active"{% endif %}>محصول جدید</a></li>
-						<li><a href="{% url 'cadmin_create_brand' %}" {% if request.resolver_match.url_name == 'cadmin_create_brand' %}class="active"{% endif %}>برند جدید</a></li>
-						<li><a href="{% url 'cadmin_create_brand' %}">دسته بندی جدید</a></li>
-						<li><a href="{% url 'cadmin_create_brand' %}">تامین کننده جدید</a></li>
+						<li><a href="{% url 'cadmin_create_brand' %}" {% if request.resolver_match.url_name == 'cadmin_create_brand' %}class="active"{% endif %}>دسته بندی های جدید</a></li>
 						{% comment %} <li><a href="advanced-form.html">فرم پیشرفته </a></li>
 						<li><a href="datepicker.html">انتخاب گر تاریخ </a></li>
 						<li><a href="timepicker.html">انتخاب گر زمان </a></li>

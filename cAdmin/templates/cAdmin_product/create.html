@@ -75,65 +75,69 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-4">
-						<div class="card">
-							<div class="card-body">
-								<h6 class="card-title">تصاویر محصول</h6>
-								<div class="form-group">
-									<label for="image_1">تصویر اول</label>
-									<input name="image_1" type="file" class="d-none" id="image_1" accept="image/jpeg, image/png, image/webp" aria-describedby="Productimage_1Help">
-									
-									<label class="btn btn-primary" for="image_1">انتخاب تصویر</label>
-									
-									<span id="file-name-1" class="ml-2 text-muted">فایلی انتخاب نشده</span>
-									
-									<small id="Productimage_1Help" class="form-text text-muted mt-2">فرمت باید به شکل jpg | png | webp باشد</small>
-								</div>
-								<div class="form-group">
-									<label for="image_2">تصویر دوم</label>
-									<input name="image_2" type="file" class="d-none" id="image_2" accept="image/jpeg, image/png, image/webp" aria-describedby="Productimage_2Help">
-									<label class="btn btn-primary" for="image_2">انتخاب تصویر</label>
-									<span id="file-name-2" class="ml-2 text-muted">فایلی انتخاب نشده</span>
-									<small id="Productimage_2Help" class="form-text text-muted mt-2">فرمت باید به شکل jpg | png | webp باشد</small>
+					<div class="col-md-12">
+						<div class="row d-flex align-items-stretch">
+							<div class="col-md-4">
+								<div class="card">
+									<div class="card-body">
+										<h6 class="card-title">تصاویر محصول</h6>
+										<div class="form-group">
+											<label for="image_1">تصویر اول</label>
+											<input name="image_1" type="file" class="d-none" id="image_1" accept="image/jpeg, image/png, image/webp" aria-describedby="Productimage_1Help">
+											
+											<label class="btn btn-primary" for="image_1">انتخاب تصویر</label>
+											
+											<span id="file-name-1" class="ml-2 text-muted">فایلی انتخاب نشده</span>
+											
+											<small id="Productimage_1Help" class="form-text text-muted mt-2">فرمت باید به شکل jpg | png | webp باشد</small>
+										</div>
+										<div class="form-group">
+											<label for="image_2">تصویر دوم</label>
+											<input name="image_2" type="file" class="d-none" id="image_2" accept="image/jpeg, image/png, image/webp" aria-describedby="Productimage_2Help">
+											<label class="btn btn-primary" for="image_2">انتخاب تصویر</label>
+											<span id="file-name-2" class="ml-2 text-muted">فایلی انتخاب نشده</span>
+											<small id="Productimage_2Help" class="form-text text-muted mt-2">فرمت باید به شکل jpg | png | webp باشد</small>
+										</div>
+									</div>
 								</div>
 							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="card">
-							<div class="card-body">
-								<h6 class="card-title">فروش ویژه / موجودیت</h6>
-								
-								<div class="form-check mb-3">
-									<input name="special_sells" type="checkbox" class="form-check-input" id="special_sells">
-									<label class="form-check-label" for="special_sells">آیا محصول در فروش ویژه میباشد؟</label>
-									<small id="Productspecial_sellsHelp" class="form-text text-muted">این گزینه فعال باشد، محصول در بخش فروش ویژه نمایش داده می‌شود.</small>
+							<div class="col-md-4">
+								<div class="card">
+									<div class="card-body">
+										<h6 class="card-title">فروش ویژه / موجودیت</h6>
+										
+										<div class="form-check mb-3">
+											<input name="special_sells" type="checkbox" class="form-check-input" id="special_sells">
+											<label class="form-check-label" for="special_sells">آیا محصول در فروش ویژه میباشد؟</label>
+											<small id="Productspecial_sellsHelp" class="form-text text-muted">این گزینه فعال باشد، محصول در بخش فروش ویژه نمایش داده می‌شود.</small>
+										</div>
+										
+										<hr>
+										
+										<div class="form-check">
+											<input name="is_available" type="checkbox" class="form-check-input" id="is_available" checked>
+											<label class="form-check-label" for="is_available">آیا محصول موجود میباشد؟</label>
+											<small id="Productis_availableHelp" class="form-text text-muted">این گزینه فعال باشد، محصول به عنوان موجود در نظر گرفته می‌شود.</small>
+										</div>
+										
+									</div>
 								</div>
-								
-								<hr>
-								
-								<div class="form-check">
-									<input name="is_available" type="checkbox" class="form-check-input" id="is_available" checked>
-									<label class="form-check-label" for="is_available">آیا محصول موجود میباشد؟</label>
-									<small id="Productis_availableHelp" class="form-text text-muted">این گزینه فعال باشد، محصول به عنوان موجود در نظر گرفته می‌شود.</small>
-								</div>
-								
 							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="card">
-							<div class="card-body">
-								<h6 class="card-title">برند محصول</h6>
-								<div class="form-group mb-3">
-									<label for="brand">انتخاب برند:</label>
-									<select name="brand" id="brand" class="form-control" required>
-										<option value="" disabled selected>----------</option>
-										{% for brand in brands %}
-										<option value="{{ brand.pk }}">{{ brand.title }}</option>
-										{% endfor %}
-									</select>
-									<small id="ProductbrandHelp" class="form-text text-muted">برند این محصول را انتخاب کنید.</small>
+							<div class="col-md-4">
+								<div class="card">
+									<div class="card-body">
+										<h6 class="card-title">برند محصول</h6>
+										<div class="form-group mb-3">
+											<label for="brand">انتخاب برند:</label>
+											<select name="brand" id="brand" class="form-control" required>
+												<option value="" disabled selected>----------</option>
+												{% for brand in brands %}
+												<option value="{{ brand.pk }}">{{ brand.title }}</option>
+												{% endfor %}
+											</select>
+											<small id="ProductbrandHelp" class="form-text text-muted">برند این محصول را انتخاب کنید.</small>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -166,6 +170,46 @@
 										{% endfor %}
 									</select>
 									<small id="ProductsuppliersHelp" class="form-text text-muted">برای انتخاب تامین کننده محصول به صورت سلسله‌مراتبی و با قابلیت چندانتخابی، باید از منوهای کشویی وابسته به هم استفاده کنی.</small>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="row d-flex align-items-stretch mb-5">
+							<div class="col-md-6">
+								<div class="card h-100">
+									<div class="card-body">
+										<h6 class="card-title">گالری تصاویر</h6>
+										<div id="gallery-container">
+											<div class="form-group">
+												<label>تصویر گالری</label>
+												<input name="gallery_images" type="file" class="d-none gallery-image-input" id="gallery-image-0" accept="image/jpeg, image/png, image/webp">
+												<label class="btn btn-primary" for="gallery-image-0">انتخاب تصویر</label>
+												<span class="ml-2 text-muted file-name">فایلی انتخاب نشده</span>
+											</div>
+										</div>
+										<hr>
+										<button type="button" class="btn btn-primary mt-3 btn-block" id="add-gallery-image">افزودن تصویر گالری</button>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="card h-100">
+									<div class="card-body">
+										<h6 class="card-title">ویژگی‌های محصول</h6>
+										<div id="attribute-container">
+											<div class="form-row mb-2">
+												<div class="col">
+													<input type="text" name="attribute_titles" class="form-control" placeholder="عنوان (مثلاً پردازنده)">
+												</div>
+												<div class="col">
+													<input type="text" name="attribute_values" class="form-control" placeholder="مقدار (مثلاً i7)">
+												</div>
+											</div>
+										</div>
+										<hr>
+										<button type="button" class="btn btn-primary mt-3 btn-block" id="add-attribute">افزودن ویژگی</button>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -218,5 +262,6 @@
 		};
 	</script>
 	<script src="{% static 'cadmin/custom_js/main.js' %}"></script>
+	<script src="{% static 'cadmin/custom_js/add_attr_and_image.js' %}"></script>
 
 {% endblock js %}
