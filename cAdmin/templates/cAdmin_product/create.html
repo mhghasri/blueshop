@@ -294,7 +294,8 @@
 	<main class="main-content">
 
 		<div class="container-fluid">
-			<form action="">
+			<form method="post" enctype="multipart/form-data">
+				{% csrf_token %}
 				<div class="row">
 					<div class="col-md-6">
 						<div class="card">
@@ -380,6 +381,55 @@
 							</div>
 						</div>
 					</div>
+					<div class="col-md-4">
+						<div class="card">
+							<div class="card-body">
+								<h6 class="card-title">برند محصول</h6>
+								<div class="form-group mb-3">
+									<label for="brand">انتخاب برند:</label>
+									<select name="brand" id="brand" class="form-control" required>
+										<option value="" disabled selected>----------</option>
+										{% for brand in brands %}
+										<option value="{{ brand.pk }}">{{ brand.title }}</option>
+										{% endfor %}
+									</select>
+									<small id="ProductbrandHelp" class="form-text text-muted">برند این محصول را انتخاب کنید.</small>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="card">
+							<div class="card-body">
+								<h6 class="card-title">دسته بندی محصول</h6>
+								<div class="form-group mb-3">
+									<label for="categories">انتخاب دسته بندی:</label>
+									<select name="categories" id="categories" class="form-control" multiple required>
+										{% for category in categories %}
+										<option value="{{ category.pk }}">{{ category.title }}</option>
+										{% endfor %}
+									</select>
+									<small id="ProductcategoriesHelp" class="form-text text-muted">برای انتخاب دسته‌بندی محصول به صورت سلسله‌مراتبی و با قابلیت چندانتخابی، باید از منوهای کشویی وابسته به هم استفاده کنی.</small>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="card">
+							<div class="card-body">
+								<h6 class="card-title">تامین کننده محصول</h6>
+								<div class="form-group mb-3">
+									<label for="suppliers">انتخاب تامین کننده:</label>
+									<select name="suppliers" id="suppliers" class="form-control" multiple required>
+										{% for supplier in suppliers %}
+										<option value="{{ supplier.pk }}">{{ supplier.title }}</option>
+										{% endfor %}
+									</select>
+									<small id="ProductsuppliersHelp" class="form-text text-muted">برای انتخاب تامین کننده محصول به صورت سلسله‌مراتبی و با قابلیت چندانتخابی، باید از منوهای کشویی وابسته به هم استفاده کنی.</small>
+								</div>
+							</div>
+						</div>
+					</div>
 					<div class="col-md-12">
 						<div class="card">
 							<div class="card-body">
@@ -395,6 +445,11 @@
 							</div>
 						</div>
 						<textarea name="description" id="hidden-description" style="display:none;"></textarea>
+					</div>
+					<div class="col-md-12 mt-4">
+						<div class="d-flex justify-content-start">
+							<button type="submit" class="btn btn-success btn-block">ثبت محصول</button>
+						</div>
 					</div>
 				</div>
 			</form>

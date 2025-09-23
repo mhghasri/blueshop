@@ -9,7 +9,7 @@ from . models import *
 def products(request, slug=None):
 
     # ---------- query ---------- #
-    products = Product.objects.all()
+    products = Product.objects.all().order_by("-created_at")
     categories = Category.objects.all()
     brands = Brand.objects.all()
     suppliers = Supplier.objects.all()
