@@ -1,0 +1,141 @@
+{% extends "cadmin_core/base.html" %}
+{% load static %}
+
+{% block breadcrumb %}
+    <div class="header-body-left">
+
+        <h3 class="page-title">برند / دسته بندی / تامین کننده جدید</h3>
+
+        <!-- begin::breadcrumb -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">داشبورد</a></li>
+                <li class="breadcrumb-item active" aria-current="page">برند-دسته بندی-تامین کننده</li>
+            </ol>
+        </nav>
+        <!-- end::breadcrumb -->
+
+    </div>
+{% endblock breadcrumb %}
+
+{% block main %}
+	<!-- begin::main content -->
+	<main class="main-content">
+
+		<div class="container-fluid">
+			<form method="post" enctype="multipart/form-data">
+				{% csrf_token %}
+				<div class="row">
+					<div class="col-md-6">
+						<div class="card">
+							<div class="card-body">
+								<h6 class="card-title">مشخصات برند</h6>
+								<div class="form-group">
+									<label for="brand_title">نام برند</label>
+									<input name="brand_title" type="text" class="form-control text-left" id="brand_title" aria-describedby="brand_title" placeholder="برند جدید" dir="ltr">
+									<small id="brand_title" class="form-text text-muted">نام برند را وارد کنید خیلی طولانی نباشد
+									</small>
+								</div>
+								<div class="form-group">
+									<label for="brand_slug">slug برند</label>
+									<input name="brand_slug" type="text" class="form-control text-left" id="brand_slug" aria-describedby="brand_slug" placeholder="برند slug" dir="ltr">
+									<small id="brand_slug" class="form-text text-muted">مثل Apple
+									</small>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="card">
+                            <div class="card-body">
+								<h6 class="card-title">مشخصات دسته بندی</h6>
+								<div class="form-group">
+									<label for="category_title">نام دسته بندی</label>
+									<input name="category_title" type="text" class="form-control text-left" id="category_title" aria-describedby="category_title" placeholder="دسته بندی جدید" dir="ltr">
+									<small id="category_title" class="form-text text-muted">نام دسته بندی را وارد کنید خیلی طولانی نباشد مثل محصولات خانگی
+									</small>
+								</div>
+								<div class="form-group">
+									<label for="category_slug">slug دسته بندی</label>
+									<input name="category_slug" type="text" class="form-control text-left" id="category_slug" aria-describedby="category_slug" placeholder="دسته بندی slug" dir="ltr">
+									<small id="category_slug" class="form-text text-muted">مثل home_product
+									</small>
+								</div>
+								<div class="form-group mb-3">
+									<label for="parent">انتخاب دسته بندی والد:</label>
+									<select name="parent" id="parent" class="form-control">
+										<option value="" selected>----------</option>
+										{% for category in categories %}
+										<option value="{{ category.pk }}">{{ category.title }}</option>
+										{% endfor %}
+									</select>
+									<small id="parent" class="form-text text-muted">والد این دسته بندی را انتخاب کنید اگر ندارد روی ---- بزارید.</small>
+								</div>
+							</div>
+						</div>
+					</div>
+                    <div class="col-md-12">
+                        <hr class="mb-4">
+                        <h6 class="card-title text-center bold h4 mb-4">تامین کننده محصول</h6>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h6 class="card-title">مشخصات تامین کننده</h6>
+                                        <div class="form-group">
+                                            <label for="supplier_title">نام شرکت</label>
+                                            <input name="supplier_title" type="text" class="form-control text-left" id="supplier_title" aria-describedby="supplier_title" placeholder="نام شرکت" dir="ltr">
+                                            <small id="supplier_title" class="form-text text-muted">نام شرکت تامین کننده محصولات را وارد کنید
+                                            </small>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="supplier_slug">slug شرکت</label>
+                                            <input name="supplier_slug" type="text" class="form-control text-left" id="supplier_slug" aria-describedby="supplier_slug" placeholder="دسته بندی slug" dir="ltr">
+                                            <small id="supplier_slug" class="form-text text-muted">مثل digi-kala
+                                            </small>
+                                        </div>
+                                        <hr>
+                                        <div class="form-group">
+                                            <label for="image_1">تصویر شرکت</label>
+                                            <input name="image_1" type="file" class="d-none" id="image_1" accept="image/jpeg, image/png, image/webp" aria-describedby="Productimage_1Help">
+                                            
+                                            <label class="btn btn-primary" for="image_1">انتخاب تصویر</label>
+                                            
+                                            <span id="file-name-1" class="ml-2 text-muted">فایلی انتخاب نشده</span>
+                                            
+                                            <small id="Productimage_1Help" class="form-text text-muted mt-2">فرمت باید به شکل jpg | png | webp باشد</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h6 class="card-title">مشخصات تامین کننده</h6>
+                                        <div class="form-group">
+                                            <label for="supplier_description">نام شرکت</label>
+                                            <textarea rows="10" name="supplier_description" type="text" class="form-control text-left"  id="supplier_description" aria-describedby="supplier_description" placeholder="توضیحات شرکت" dir="ltr"></textarea>
+                                            <small id="supplier_description" class="form-text text-muted">توضیحات شرکت برای نمایش بهتر را وارد کنید
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+					</div>
+					<div class="col-md-12 mt-4">
+						<div class="d-flex justify-content-start">
+							<button type="submit" class="btn btn-success btn-block">ثبت محصول</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+
+	</main>
+	<!-- end::main content -->
+{% endblock main %}
+
+{% block js %}
+	<script src="{% static 'cadmin/custom_js/main.js' %}"></script>
+{% endblock js %}
