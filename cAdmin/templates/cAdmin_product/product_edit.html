@@ -1,0 +1,267 @@
+{% extends "cadmin_core/base.html" %}
+{% load static %}
+
+{% block style %}
+	<link rel="icon" type="image/png" href="https://ckeditor.com/assets/images/favicons/32x32.png" sizes="32x32">
+	<link rel="icon" type="image/png" href="https://ckeditor.com/assets/images/favicons/96x96.png" sizes="96x96">
+	<link rel="apple-touch-icon" type="image/png" href="https://ckeditor.com/assets/images/favicons/120x120.png" sizes="120x120">
+	<link rel="apple-touch-icon" type="image/png" href="https://ckeditor.com/assets/images/favicons/152x152.png" sizes="152x152">
+	<link rel="apple-touch-icon" type="image/png" href="https://ckeditor.com/assets/images/favicons/167x167.png" sizes="167x167">
+	<link rel="apple-touch-icon" type="image/png" href="https://ckeditor.com/assets/images/favicons/180x180.png" sizes="180x180">
+	<link rel="stylesheet" href="{% static 'cadmin/ckEditor/style.css' %}">
+	<link rel="stylesheet" href="{% static 'cadmin/ckEditor/ckeditor5/ckeditor5.css' %}">
+{% endblock style %}
+
+{% block breadcrumb %}
+	<div class="header-body-left">
+
+		<h3 class="page-title">ساخت محصول جدید</h3>
+
+		<!-- begin::breadcrumb -->
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="#">داشبورد</a></li>
+				<li class="breadcrumb-item active" aria-current="page">فرم های پایه</li>
+			</ol>
+		</nav>
+		<!-- end::breadcrumb -->
+
+	</div>
+{% endblock breadcrumb %}
+
+{% block main %}
+	<!-- begin::main content -->
+	<main class="main-content">
+
+		<div class="container-fluid">
+			<form method="post" enctype="multipart/form-data">
+				{% csrf_token %}
+				<div class="row">
+					<div class="col-md-6">
+						<div class="card">
+							<div class="card-body">
+								<h6 class="card-title">مشخصات محصول</h6>
+								<div class="form-group">
+									<label for="producttitle">نام محصول</label>
+									<input name="title" type="text" class="form-control text-left" id="producttitle" aria-describedby="ProductTitleHelp" placeholder="نام محصول" dir="ltr">
+									<small id="ProductTitleHelp" class="form-text text-muted">نام محصول را وارد کنید خیلی طولانی نباشد
+									</small>
+								</div>
+								<div class="form-group">
+									<label for="full_detail">جزئیات محصول</label>
+									<input name="full_detail" type="text" class="form-control text-left" id="full_detail" aria-describedby="Productfull_detailHelp" placeholder="جزئیات محصول" dir="ltr">
+									<small id="Productfull_detailHelp" class="form-text text-muted">i7-14th RTX4060 16GB 1TBSSD OLED15.6
+									</small>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="card">
+							<div class="card-body">
+								<h6 class="card-title">قیمت محصول</h6>
+								<div class="form-group">
+									<label for="productprice">قیمت پایه</label>
+									<input name="price" type="number" class="form-control text-left" id="productprice" aria-describedby="ProductpriceHelp" placeholder="قیمت محصول" dir="ltr">
+									<small id="ProductpriceHelp" class="form-text text-muted">قیمت به تومان باید باشد
+									</small>
+								</div>
+								<div class="form-group">
+									<label for="discount">تخفیف</label>
+									<input name="discount" type="number" class="form-control text-left" id="discount" aria-describedby="ProductdiscountHelp" placeholder="تخفیف محصول" dir="ltr">
+									<small id="ProductdiscountHelp" class="form-text text-muted">فقط عدد وارد کنید نیازی به علامت درصد % نیست مثلا 10
+									</small>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="row d-flex align-items-stretch">
+							<div class="col-md-4">
+								<div class="card">
+									<div class="card-body">
+										<h6 class="card-title">تصاویر محصول</h6>
+										<div class="form-group">
+											<label for="image_1">تصویر اول</label>
+											<input name="image_1" type="file" class="d-none" id="image_1" accept="image/jpeg, image/png, image/webp" aria-describedby="Productimage_1Help">
+											
+											<label class="btn btn-primary" for="image_1">انتخاب تصویر</label>
+											
+											<span id="file-name-1" class="ml-2 text-muted">فایلی انتخاب نشده</span>
+											
+											<small id="Productimage_1Help" class="form-text text-muted mt-2">فرمت باید به شکل jpg | png | webp باشد</small>
+										</div>
+										<div class="form-group">
+											<label for="image_2">تصویر دوم</label>
+											<input name="image_2" type="file" class="d-none" id="image_2" accept="image/jpeg, image/png, image/webp" aria-describedby="Productimage_2Help">
+											<label class="btn btn-primary" for="image_2">انتخاب تصویر</label>
+											<span id="file-name-2" class="ml-2 text-muted">فایلی انتخاب نشده</span>
+											<small id="Productimage_2Help" class="form-text text-muted mt-2">فرمت باید به شکل jpg | png | webp باشد</small>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="card">
+									<div class="card-body">
+										<h6 class="card-title">فروش ویژه / موجودیت</h6>
+										
+										<div class="form-check mb-3">
+											<input name="special_sells" type="checkbox" class="form-check-input" id="special_sells">
+											<label class="form-check-label" for="special_sells">آیا محصول در فروش ویژه میباشد؟</label>
+											<small id="Productspecial_sellsHelp" class="form-text text-muted">این گزینه فعال باشد، محصول در بخش فروش ویژه نمایش داده می‌شود.</small>
+										</div>
+										
+										<hr>
+										
+										<div class="form-check">
+											<input name="is_available" type="checkbox" class="form-check-input" id="is_available" checked>
+											<label class="form-check-label" for="is_available">آیا محصول موجود میباشد؟</label>
+											<small id="Productis_availableHelp" class="form-text text-muted">این گزینه فعال باشد، محصول به عنوان موجود در نظر گرفته می‌شود.</small>
+										</div>
+										
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="card">
+									<div class="card-body">
+										<h6 class="card-title">برند محصول</h6>
+										<div class="form-group mb-3">
+											<label for="brand">انتخاب برند:</label>
+											<select name="brand" id="brand" class="form-control" required>
+												<option value="" disabled selected>----------</option>
+												{% for brand in brands %}
+												<option value="{{ brand.pk }}">{{ brand.title }}</option>
+												{% endfor %}
+											</select>
+											<small id="ProductbrandHelp" class="form-text text-muted">برند این محصول را انتخاب کنید.</small>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="card">
+							<div class="card-body">
+								<h6 class="card-title">دسته بندی محصول</h6>
+								<div class="form-group mb-3">
+									<label for="categories">انتخاب دسته بندی:</label>
+									<select name="categories" id="categories" class="form-control" multiple required>
+										{% for category in categories %}
+										<option value="{{ category.pk }}">{{ category.title }}</option>
+										{% endfor %}
+									</select>
+									<small id="ProductcategoriesHelp" class="form-text text-muted">برای انتخاب دسته‌بندی محصول به صورت سلسله‌مراتبی و با قابلیت چندانتخابی، باید از منوهای کشویی وابسته به هم استفاده کنی.</small>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="card">
+							<div class="card-body">
+								<h6 class="card-title">تامین کننده محصول</h6>
+								<div class="form-group mb-3">
+									<label for="suppliers">انتخاب تامین کننده:</label>
+									<select name="suppliers" id="suppliers" class="form-control" multiple required>
+										{% for supplier in suppliers %}
+										<option value="{{ supplier.pk }}">{{ supplier.title }}</option>
+										{% endfor %}
+									</select>
+									<small id="ProductsuppliersHelp" class="form-text text-muted">برای انتخاب تامین کننده محصول به صورت سلسله‌مراتبی و با قابلیت چندانتخابی، باید از منوهای کشویی وابسته به هم استفاده کنی.</small>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="row d-flex align-items-stretch mb-5">
+							<div class="col-md-6">
+								<div class="card h-100">
+									<div class="card-body">
+										<h6 class="card-title">گالری تصاویر</h6>
+										<div id="gallery-container">
+											<div class="form-group">
+												<label>تصویر گالری</label>
+												<input name="gallery_images" type="file" class="d-none gallery-image-input" id="gallery-image-0" accept="image/jpeg, image/png, image/webp">
+												<label class="btn btn-primary" for="gallery-image-0">انتخاب تصویر</label>
+												<span class="ml-2 text-muted file-name">فایلی انتخاب نشده</span>
+											</div>
+										</div>
+										<hr>
+										<button type="button" class="btn btn-primary mt-3 btn-block" id="add-gallery-image">افزودن تصویر گالری</button>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="card h-100">
+									<div class="card-body">
+										<h6 class="card-title">ویژگی‌های محصول</h6>
+										<div id="attribute-container">
+											<div class="form-row mb-2">
+												<div class="col">
+													<input type="text" name="attribute_titles" class="form-control" placeholder="عنوان (مثلاً پردازنده)">
+												</div>
+												<div class="col">
+													<input type="text" name="attribute_values" class="form-control" placeholder="مقدار (مثلاً i7)">
+												</div>
+											</div>
+										</div>
+										<hr>
+										<button type="button" class="btn btn-primary mt-3 btn-block" id="add-attribute">افزودن ویژگی</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-body">
+								<h6 class="card-title">معرفی محصول</h6>
+								<div class="main-container">
+								<div
+									class="editor-container editor-container_classic-editor editor-container_include-word-count editor-container_include-fullscreen"
+									id="editor-container"
+								>
+										<div class="editor-container__editor"><div id="editor"></div></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<textarea name="description" id="hidden-description" style="display:none;"></textarea>
+					</div>
+					<div class="col-md-12 mt-4">
+						<div class="d-flex justify-content-start">
+							<button type="submit" class="btn btn-success btn-block">ثبت محصول</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+
+	</main>
+	<!-- end::main content -->
+{% endblock main %}
+
+{% block js %}
+	<script type="importmap">
+			{
+				"imports": {
+					"ckeditor5": "{% static 'cadmin/ckEditor/ckeditor5/ckeditor5.js' %}",
+					"ckeditor5/": "{% static 'cadmin/ckEditor/ckeditor5/' %}"
+				}
+			}
+	</script>
+	<script type="module" src="{% static 'cadmin/ckEditor/main.js' %}"></script>
+	<!-- A friendly reminder to run on a server, remove this during the integration. -->
+	<script>
+		window.onload = function() {
+			if ( window.location.protocol === "file:" ) {
+				alert( "This sample requires an HTTP server. Please serve this file with a web server." );
+			}
+		};
+	</script>
+	<script src="{% static 'cadmin/custom_js/main.js' %}"></script>
+	<script src="{% static 'cadmin/custom_js/add_attr_and_image.js' %}"></script>
+
+{% endblock js %}

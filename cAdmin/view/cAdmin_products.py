@@ -1,6 +1,31 @@
 from django.shortcuts import render
 from products.models import *
 
+# ------ products ------ #
+
+def products(request):
+
+    # products_data = Product.objects.values('pk', 'slug', 'image_1', 'title', 'price', 'discount', 'final_price', 'special_sells', 'is_available')
+                                                            # image make conflict and dont showing
+    
+    products_data = Product.objects.all()
+
+    context = {
+        "products_data" : products_data,
+    }
+
+    return render (request, "cAdmin_product/products.html", context)
+
+# ------ product_edits ------ #
+
+def products_edit(request, **kwargs):
+    context = {
+
+    }
+
+    return render(request, "cAdmin_product/product_edit.html", context)
+
+# ------ create_products ------ #
 
 def create_product(request):
 
