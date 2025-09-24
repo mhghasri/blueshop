@@ -1,3 +1,5 @@
+// ---------------- add attributes and imagegallery ---------------- //
+
 // دریافت دکمه‌ها و کانتینرها با استفاده از ID
 const addAttributeButton = document.getElementById('add-attribute');
 const attributeContainer = document.getElementById('attribute-container');
@@ -69,3 +71,5 @@ addGalleryImageButton.addEventListener('click', () => {
     const newFileInput = newFormGroup.querySelector('.gallery-image-input');
     newFileInput.addEventListener('change', handleFileInputChange);
 });
+
+// ----------------  ---------------- //

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from products.models import *
 
 # ------ products ------ #
@@ -19,9 +19,160 @@ def products(request):
 # ------ product_edits ------ #
 
 def products_edit(request, **kwargs):
-    context = {
 
+    product_detail = get_object_or_404(Product.objects.select_related('brand').prefetch_related('categories', 'product_package', 'imagegallery', 'attribute'), pk=kwargs['pk'])
+
+
+    # exclude product category
+    product_categories_pks = product_detail.categories.values_list('pk', flat=True)     # value_list -> [(1, ), (2, ), (3, )] --- flat=True -> [1, 2, 3]
+
+    all_categories = Category.objects.all().exclude(pk__in=product_categories_pks)
+
+
+    # ecclude product suppliers
+    product_suppliers_pks = product_detail.suppliers.values_list('pk', flat=True)
+
+    all_suppliers = Supplier.objects.all().exclude(pk__in=product_suppliers_pks)
+
+    all_brnads = Brand.objects.all().exclude(pk=product_detail.brand.pk)
+
+    context = {
+        "product" : product_detail,
+        "attributes" : product_detail.attribute.all(),
+        "imagegallery" : product_detail.imagegallery.all(),
+        "product_categories" : product_detail.categories.all(),
+        'product_suppliers' : product_detail.suppliers.all(),
+        'categories' : all_categories,
+        'suppliers' : all_suppliers,
+        'brands' : all_brnads
     }
+
+    if request.POST:
+
+        update_fields = {}
+
+        title = request.POST.get('title')
+        full_detail = request.POST.get('full_detail')
+        description = request.POST.get('description')
+        price = request.POST.get('price')
+        discount = request.POST.get('discount')
+        special_sells = request.POST.get('special_sells')
+        is_available = request.POST.get('is_available')
+
+        image_1 = request.FILES.get('image_1')
+        image_2 = request.FILES.get('image_2')
+
+        brand_id = request.POST.get('brand')
+        brand_obj = None
+
+        if brand_id and brand_id != "":
+            brand_obj = Brand.objects.get(pk=int(brand_id))
+
+        
+        # make a dictionary for update
+        if title and title != product_detail.title:
+            update_fields['title'] = title
+        
+        if full_detail and full_detail != product_detail.full_detail:
+            update_fields['full_detail'] = full_detail
+
+        if description and description != product_detail.description:
+            update_fields['description'] = description
+
+
+        # numeric data
+        if price and price.isdigit():
+
+            price = int(price)
+
+            if price != product_detail.price:
+                update_fields['price'] = price
+
+        if discount and discount.isdigit():
+
+            discount = int(discount)
+            
+            if discount != product_detail.discount:
+                update_fields['discount'] = discount
+
+        if (special_sells == "on") != product_detail.special_sells:
+            update_fields['special_sells'] = (special_sells == "on")
+
+        if (is_available == "on") != product_detail.is_available:
+            update_fields['is_available'] = (is_available == "on")
+
+        if brand_obj and brand_obj.pk != product_detail.brand.pk:
+            update_fields['brand'] = brand_obj
+
+        # for files and images
+        if image_1:
+            print("hello world1")
+
+            product_detail.image_1.delete()
+            product_detail.image_1 = image_1
+        if image_2:
+            print("hello world2")
+
+            product_detail.image_2.delete()
+            product_detail.image_2 = image_2
+
+        if image_1 or image_2:
+            print("hello world3")
+            product_detail.save()
+
+        Product.objects.filter(pk=product_detail.pk).update(**update_fields)
+        
+
+        # get ids with id list
+        selected_categories_ids = request.POST.getlist('selected_categories')
+        selected_suppliers_ids = request.POST.getlist('selected_suppliers')
+
+
+        # make many to many relations
+
+        if selected_categories_ids:
+            product_detail.categories.set(selected_categories_ids)
+
+        if selected_suppliers_ids:
+            product_detail.suppliers.set(selected_suppliers_ids)
+
+
+        # handdle image gallery
+        gallery_images = request.FILES.getlist('gallery_images')
+
+        if gallery_images:
+
+            product_detail.imagegallery.all().delete()
+
+            for image_file in gallery_images:
+                ImageGallery.objects.create(
+                    image = image_file,
+                    product = product_detail
+                )
+
+        # handdle attributes
+        attribute_titles = request.POST.getlist('attribute_titles')
+        attribute_values = request.POST.getlist('attribute_values')
+
+        if attribute_titles and attribute_values:
+
+            product_detail.attribute.all().delete()
+
+            # make sure value len and title len are equal
+            if len(attribute_titles) == len(attribute_values):
+                for i in range(len(attribute_titles)):
+                    if attribute_titles[i] and attribute_values[i]: # make sure they are not empty
+                        Attribute.objects.create(
+                            title = attribute_titles[i],
+                            value = attribute_values[i],
+                            product = product_detail
+                        )
+
+        if update_fields:
+
+            return redirect('cadmin_product')
+
+
 
     return render(request, "cAdmin_product/product_edit.html", context)
 
