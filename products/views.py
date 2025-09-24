@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 from django.db.models import Q, Min, Max
+from collections import defaultdict
 from django.urls import reverse
 from . models import *
 
@@ -159,6 +160,10 @@ def product_detail(request, **kwargs):
 
     discounted_product = products.filter(discount__gt = 0).exclude(pk=product.id)
 
+    packages_by_color = defaultdict(list)
+    for p in product.product_package.all():
+        packages_by_color[p.color_name].append(p)
+
     context = {
 
         "products" : products,
@@ -170,6 +175,8 @@ def product_detail(request, **kwargs):
         'imagegallery' : product.imagegallery.all(),
 
         'packages' : product.product_package.all(),
+        
+        'packages_by_color': dict(packages_by_color),
 
         'related_product' : related_product,
         

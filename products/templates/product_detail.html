@@ -450,22 +450,35 @@
                         </div>
                         <!-- COLOR -->
                         <div class="flex flex-col gap-y-4">
-                            <h1 class="font-DanaDemiBold text-lg color-title dark:text-gray-200">رنگ : سبز</h1>
-                            <div class="flex items-center gap-x-3 child:rounded-full child:size-9 child:p-1">
-                              <button class="color-select-btn ring-4 ring-blue-400 transition-all duration-300 ease-in-out">
-                                <span class="bg-black w-full h-full rounded-full flex"></span>
-                              </button>
-                              <button class="color-select-btn ring-1 ring-gray-400 transition-all duration-300 ease-in-out">
-                                <span class="bg-white app-border w-full h-full rounded-full flex"></span>
-                              </button>
-                              <button class="color-select-btn ring-1 ring-gray-400 transition-all duration-300 ease-in-out">
-                                <span class="bg-green-400 w-full h-full rounded-full flex"></span>
-                              </button>
-                              <button class="color-select-btn ring-1 ring-gray-400 transition-all duration-300 ease-in-out">
-                                <span class="bg-blue-500 w-full h-full rounded-full flex"></span>
-                              </button>
+                            <h1 id="package-title" class="font-DanaDemiBold text-lg dark:text-gray-200">
+                                پکیج: <span id="selected-color" class="text-blue-400"></span>
+                            </h1>
+
+                            <!-- رنگ‌ها -->
+                            <div class="flex items-center gap-x-3">
+                                {% for color, packages_group in packages_by_color.items %}
+                                <button
+                                    type="button"
+                                    class="package-select-btn flex items-center gap-x-2 ring-1 ring-gray-400 p-2 rounded-full transition-all duration-300 ease-in-out dark:bg-gray-800 dark:text-gray-200"
+                                    data-color="{{ color }}"
+                                >
+                                    <span class="w-6 h-6 rounded-full border border-gray-300"
+                                        style="background-color: {{ packages_group.0.color_hex }};"></span>
+                                    {% comment %} <span class="text-sm font-medium">{{ color }}</span> {% endcomment %}
+                                </button>
+                                {% endfor %}
                             </div>
-                        </div>  
+
+                            <!-- دراپ‌داون تأمین‌کننده -->
+                            <div class="mt-4">
+                                <label for="supplier-dropdown" class="block text-sm font-medium dark:text-gray-300">تأمین‌کننده:</label>
+                                <select id="supplier-dropdown"
+                                    class="mt-1 block w-full rounded-lg border border-gray-500 bg-gray-900 text-gray-100
+                                        px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+                                        appearance-none">
+                                </select>
+                            </div>
+                        </div>
                         <!-- Features Box  -->
                         <div class="w-full flex flex-col gap-y-4">
                             <h1 class="font-DanaDemiBold text-lg dark:text-gray-200">ویژگی‌ها</h1>
@@ -514,13 +527,9 @@
             <!-- PRICE & ADD TO CART BOX -->
             <div class="w-full lg:w-1/4 lg:sticky top-5 flex flex-col gap-y-6">
                 <!-- PRICE -->
-                <div class="flex items-center gap-x-1">
-                    {% if product.is_available %}
-                        <p class="text-2xl font-DanaDemiBold">{{ product.final_price | currency }}</p>
-                        <p class="">تومان</p>
-                    {% else %}
-                        <p class="text-2xl font-DanaDemiBold">محصول ناموجود</p>
-                    {% endif %}
+                <div class="flex items-center gap-x-1 price-container mt-2">
+                    <p class="text-2xl font-DanaDemiBold price-amount"></p>
+                    <p class="price-currency">تومان</p>
                 </div>
                 <button
                     class="w-full flex items-center justify-between gap-x-1 rounded-lg border border-gray-200 dark:border-white/20 py-2 px-3">
@@ -1216,5 +1225,131 @@
     <script src="{% static 'main/swiper/swiper.js' %}"></script>
     <script src="{% static 'main/scripts/productDetails.js' %}"></script>
     <script src="{% static 'main/scripts/slider.js' %}"></script>
-    <script src="{% static 'main/custom_scripts/product_detail.js' %}"></script>
+    <script src="{% static 'main/custom_scripts/custom_scripts.js' %}"></script>
+    <!-- product packages -->
+    <script>
+        (function () {
+            const priceEl = document.querySelector('.price-container .price-amount');
+            const priceCurrencyEl = document.querySelector('.price-container .price-currency');
+            const btns = document.querySelectorAll('.package-select-btn');
+            const supplierDropdown = document.getElementById('supplier-dropdown');
+            const selectedColorEl = document.getElementById('selected-color');
+
+            // وضعیت محصول (از Django) — مقدار بولی JS
+            const PRODUCT_AVAILABLE = {% if product.is_available %} true {% else %} false {% endif %};
+
+            // ساختار دیتا: packagesByColor[color] = [{price, supplier, color}, ...]
+            const packagesByColor = {
+                {% for color, packages_group in packages_by_color.items %}
+                "{{ color|escapejs }}": [
+                    {% for p in packages_group %}
+                    {
+                        price: {{ p.final_price }},
+                        supplier: "{{ p.suppliers.all.0.title|escapejs }}",
+                        color: "{{ p.color_name|escapejs }}"
+                    }{% if not forloop.last %},{% endif %}
+                    {% endfor %}
+                ]{% if not forloop.last %},{% endif %}
+                {% endfor %}
+            };
+
+            function formatToman(n) {
+                const num = parseInt(n, 10) || 0;
+                return num.toLocaleString('fa-IR');
+            }
+
+            function selectBtn(active) {
+                btns.forEach(b => {
+                    b.classList.remove('ring-4', 'ring-blue-400');
+                    b.classList.add('ring-1', 'ring-gray-400');
+                    b.setAttribute('aria-pressed', 'false');
+                });
+                if (!active) return;
+                active.classList.remove('ring-1', 'ring-gray-400');
+                active.classList.add('ring-4', 'ring-blue-400');
+                active.setAttribute('aria-pressed', 'true');
+            }
+
+            function updatePrice(color, supplierIdx) {
+                // اول چک کن محصول کلی موجود هست یا نه
+                if (!PRODUCT_AVAILABLE) {
+                    priceEl.textContent = "محصول موجود نیست";
+                    if (priceCurrencyEl) priceCurrencyEl.style.display = 'none';
+                    return;
+                }
+
+                const list = packagesByColor[color];
+                if (!list || typeof list[supplierIdx] === 'undefined') {
+                    priceEl.textContent = "";
+                    if (priceCurrencyEl) priceCurrencyEl.style.display = 'none';
+                    return;
+                }
+
+                const pkg = list[supplierIdx];
+                priceEl.textContent = formatToman(pkg.price);
+                if (priceCurrencyEl) priceCurrencyEl.style.display = '';
+            }
+
+            function updateSuppliers(color) {
+                // نمایش اسم رنگ در header
+                if (selectedColorEl) selectedColorEl.textContent = color;
+
+                // خالی کردن و پر کردن dropdown
+                supplierDropdown.innerHTML = "";
+                const list = packagesByColor[color];
+                if (!list || list.length === 0) {
+                    const opt = document.createElement('option');
+                    opt.value = "";
+                    opt.textContent = "تأمین‌کننده‌ای موجود نیست";
+                    supplierDropdown.appendChild(opt);
+                    supplierDropdown.disabled = true;
+                    updatePrice(color, 0);
+                    return;
+                }
+
+                list.forEach((p, idx) => {
+                    const opt = document.createElement('option');
+                    opt.value = idx;
+                    opt.textContent = p.supplier;
+                    supplierDropdown.appendChild(opt);
+                });
+                supplierDropdown.disabled = false;
+                // پیش‌فرض: اولین تامین‌کننده انتخاب و قیمت بروزرسانی شود
+                supplierDropdown.selectedIndex = 0;
+                updatePrice(color, 0);
+            }
+
+            // رویداد کلیک روی هر رنگ
+            btns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const color = btn.dataset.color || btn.getAttribute('data-color');
+                    selectBtn(btn);
+                    updateSuppliers(color);
+                });
+            });
+
+            // وقتی کاربر تأمین‌کننده را تغییر داد
+            supplierDropdown.addEventListener('change', () => {
+                const activeBtn = document.querySelector('.package-select-btn[aria-pressed="true"]');
+                const color = activeBtn ? (activeBtn.dataset.color || activeBtn.getAttribute('data-color')) : null;
+                const supplierIdx = parseInt(supplierDropdown.value, 10) || 0;
+                if (color) updatePrice(color, supplierIdx);
+            });
+
+            // مقدار اولیه: رنگ اول + تامین‌کننده اول
+            if (btns.length > 0) {
+                btns[0].click();
+            } else {
+                // هیچ رنگی نبود — وضعیت قیمت رو بر اساس موجود بودن کلی محصول تنظیم کن
+                if (!PRODUCT_AVAILABLE) {
+                    priceEl.textContent = "محصول موجود نیست";
+                    if (priceCurrencyEl) priceCurrencyEl.style.display = 'none';
+                } else {
+                    priceEl.textContent = "";
+                    if (priceCurrencyEl) priceCurrencyEl.style.display = '';
+                }
+            }
+        })();
+    </script>
+
 {% endblock js %}
