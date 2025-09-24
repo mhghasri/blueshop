@@ -151,18 +151,21 @@ def products_edit(request, **kwargs):
         attribute_titles = request.POST.getlist('attribute_titles')
         attribute_values = request.POST.getlist('attribute_values')
 
-        if (attribute_titles and attribute_values) and (attribute_titles != "" and attribute_values != ""):
+        # فقط وقتی کاربر حداقل یک attribute جدید وارد کرده
+        has_new_attributes = any(title.strip() for title in attribute_titles) and any(value.strip() for value in attribute_values)
 
+        if has_new_attributes:
+
+            # پاک کردن attributeهای قبلی
             product_detail.attribute.all().delete()
 
-            # make sure value len and title len are equal
             if len(attribute_titles) == len(attribute_values):
-                for i in range(len(attribute_titles)):
-                    if attribute_titles[i] and attribute_values[i]: # make sure they are not empty
+                for title, value in zip(attribute_titles, attribute_values):
+                    if title.strip() and value.strip(): # make sure its not empty
                         Attribute.objects.create(
-                            title = attribute_titles[i],
-                            value = attribute_values[i],
-                            product = product_detail
+                            title=title,
+                            value=value,
+                            product=product_detail
                         )
 
         if update_fields or selected_categories_ids or selected_suppliers_ids:
