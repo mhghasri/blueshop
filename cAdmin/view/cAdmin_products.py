@@ -106,22 +106,19 @@ def products_edit(request, **kwargs):
 
         # for files and images
         if image_1:
-            print("hello world1")
-
-            product_detail.image_1.delete()
+            product_detail.image_1.delete(save=False)
             product_detail.image_1 = image_1
-        if image_2:
-            print("hello world2")
 
-            product_detail.image_2.delete()
+        if image_2:
+            product_detail.image_2.delete(save=False)
             product_detail.image_2 = image_2
 
-        if image_1 or image_2:
-            print("hello world3")
-            product_detail.save()
 
-        Product.objects.filter(pk=product_detail.pk).update(**update_fields)
-        
+        # assign new data to update fields and value
+        for field, value in update_fields.items():
+            setattr(product_detail, field, value)
+
+        product_detail.save()
 
         # get ids with id list
         selected_categories_ids = request.POST.getlist('selected_categories')
@@ -168,7 +165,7 @@ def products_edit(request, **kwargs):
                             product = product_detail
                         )
 
-        if update_fields:
+        if update_fields or selected_categories_ids or selected_suppliers_ids:
 
             return redirect('cadmin_product')
 

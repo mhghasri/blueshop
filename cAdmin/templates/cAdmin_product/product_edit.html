@@ -15,13 +15,14 @@
 {% block breadcrumb %}
 	<div class="header-body-left">
 
-		<h3 class="page-title">ساخت محصول جدید</h3>
+		<h3 class="page-title">بروز رسانی محصول</h3>
 
 		<!-- begin::breadcrumb -->
 		<nav aria-label="breadcrumb">
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a href="#">داشبورد</a></li>
-				<li class="breadcrumb-item active" aria-current="page">فرم های پایه</li>
+				<li class="breadcrumb-item"><a href="{% url "cadmin_product" %}">لیست محصولات</a></li>
+				<li class="breadcrumb-item active" aria-current="page">بروز رسانی محصول : {{ product.title | truncatewords:5 }}</li>
 			</ol>
 		</nav>
 		<!-- end::breadcrumb -->
@@ -34,7 +35,7 @@
 	<main class="main-content">
 
 		<div class="container-fluid">
-			<form method="post" enctype="multipart/form-data">
+			<form method="post" enctype="multipart/form-data" id="productForm">
 				{% csrf_token %}
 				<div class="row">
 					<div class="col-md-6">

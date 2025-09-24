@@ -26,4 +26,44 @@ handleDoubleDblClick('selected_categories', 'all_categories');
 handleDoubleDblClick('all_suppliers', 'selected_suppliers');
 handleDoubleDblClick('selected_suppliers', 'all_suppliers');
 
-// ----------------  change category and supplier ---------------- //
+// ---------------- submit all selected categories before send ---------------- //
+
+// قبل از submit همه گزینه‌های داخل select های مقصد انتخاب بشن
+document.getElementById("productForm").addEventListener("submit", function() {
+    // دسته‌بندی‌ها
+    const selectedCategories = document.getElementById("selected_categories").options;
+    for (let option of selectedCategories) {
+        option.selected = true;
+    }
+
+    // تامین‌کننده‌ها
+    const selectedSuppliers = document.getElementById("selected_suppliers").options;
+    for (let option of selectedSuppliers) {
+        option.selected = true;
+    }
+});
+
+// ---------------- fix style ---------------- //
+
+// استایل برای حذف هایلایت انتخاب‌شده‌ها در همه selectهای ما
+const style = document.createElement("style");
+style.innerHTML = `
+  #all_categories option:checked,
+  #selected_categories option:checked,
+  #all_suppliers option:checked,
+  #selected_suppliers option:checked {
+      background-color: inherit !important;
+      color: inherit !important;
+  }
+`;
+document.head.appendChild(style);
+
+// جلوگیری از انتخاب شدن (highlight) با کلیک
+["all_categories", "selected_categories", "all_suppliers", "selected_suppliers"].forEach(id => {
+    const select = document.getElementById(id);
+    if (select) {
+        select.addEventListener("mousedown", function(e) {
+            e.preventDefault(); // جلوی انتخاب شدن رو می‌گیره
+        });
+    }
+});
