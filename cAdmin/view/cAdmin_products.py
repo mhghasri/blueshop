@@ -8,7 +8,7 @@ def products(request):
     # products_data = Product.objects.values('pk', 'slug', 'image_1', 'title', 'price', 'discount', 'final_price', 'special_sells', 'is_available')
                                                             # image make conflict and dont showing
     
-    products_data = Product.objects.all()
+    products_data = Product.objects.all().order_by('-created_at')
 
     context = {
         "products_data" : products_data,
@@ -151,7 +151,7 @@ def products_edit(request, **kwargs):
         attribute_titles = request.POST.getlist('attribute_titles')
         attribute_values = request.POST.getlist('attribute_values')
 
-        if attribute_titles and attribute_values:
+        if (attribute_titles and attribute_values) and (attribute_titles != "" and attribute_values != ""):
 
             product_detail.attribute.all().delete()
 

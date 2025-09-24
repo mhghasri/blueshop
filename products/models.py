@@ -96,6 +96,8 @@ class Product(models.Model):
 
     def save(self, *args, **kwargs):
 
+        self.final_price = int(self.price - (self.price * self.discount / 100))
+        
         if self.pk:
             old_discount = Product.objects.filter(pk=self.pk).values_list('discount', flat=True).first()
 
@@ -103,9 +105,6 @@ class Product(models.Model):
                 for p in self.product_package.all():
                     p.final_price = int(p.price - (p.price * self.discount / 100))
                     p.save(update_fields=['final_price'])
-
-        else:
-            self.final_price = int(self.price - (self.price * self.discount / 100))
 
         if not self.slug:
             self.slug = slugify(self.title, allow_unicode=True)
