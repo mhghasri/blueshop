@@ -84,8 +84,11 @@ def product_packages(request, **kwargs):
 # *------------- product_package_edit -------------* #
 
 def edit_product_package(request, **kwargs):
-    context = {
 
+    package = get_object_or_404(Package.objects.prefetch_related('product', 'suppliers'), pk=kwargs['pk'])
+
+    context = {
+        'package' : package,
     }
 
     return render(request, "cAdmin_package/edit_product_package.html", context)

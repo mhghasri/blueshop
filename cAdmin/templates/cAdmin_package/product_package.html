@@ -49,10 +49,10 @@
                                         <tr>
                                             <td>{{ forloop.counter }}</td>
                                             <td>
-                                                <a href="{% url 'cadmin_product_edit_package' p.package.product.pk p.package.product.slug %}">{{ p.package.color_name }}</a>
+                                                <a href="{% url 'cadmin_product_edit_package' p.package.pk p.package.product.slug %}">{{ p.package.color_name }}</a>
                                             </td>
                                             <td class="text-muted h6">
-                                                <a href="{% url 'cadmin_product_edit_package' p.package.product.pk p.package.product.slug %}">{{ p.package.suppliers.first.title }}</a>
+                                                <a href="{% url 'cadmin_product_edit_package' p.package.pk p.package.product.slug %}">{{ p.package.suppliers.first.title }}</a>
                                             </td>
                                             <td class="text-muted h6">{{ p.package.price | currency }}</td>
                                             <td class="text-muted h6">{{ p.package.product.discount }}%</td>
