@@ -440,10 +440,9 @@
 				<li class="open">
 					<a href="#">فرم ها</a>
 					<ul>
-						<li><a href="{% url 'cadmin_product' %}" {% if request.resolver_match.url_name == 'cadmin_product' or request.resolver_match.url_name == 'cadmin_product_edit' %}class="active"{% endif %}>محصولات</a></li>
-						<li><a href="{% url 'cadmin_create_product' %}" {% if request.resolver_match.url_name == 'cadmin_create_product' %}class="active"{% endif %}>محصول جدید</a></li>
+						<li><a href="{% url 'cadmin_product' %}" {% if request.resolver_match.url_name == 'cadmin_product' or request.resolver_match.url_name == 'cadmin_product_edit' or request.resolver_match.url_name == 'cadmin_create_product' %}class="active"{% endif %}>{% if request.resolver_match.url_name == 'cadmin_create_product' %}محصول جدید{% else %}محصولات{% endif %}</a></li>
+						<li><a href="{% url 'cadmin_packages' %}" {% if request.resolver_match.url_name == 'cadmin_create_packages' or request.resolver_match.url_name == 'cadmin_packages' %}class="active"{% endif %}>{% if request.resolver_match.url_name == 'cadmin_create_packages' %}پکیج جدید{% else %}پکیج ها{% endif %}</a></li>
 						<li><a href="{% url 'cadmin_create_brand' %}" {% if request.resolver_match.url_name == 'cadmin_create_brand' %}class="active"{% endif %}>دسته بندی های جدید</a></li>
-						<li><a href="{% url 'cadmin_create_packages' %}" {% if request.resolver_match.url_name == 'cadmin_create_packages' %}class="active"{% endif %}>پکیج جدید</a></li>
 						{% comment %} <li><a href="advanced-form.html">فرم پیشرفته </a></li>
 						<li><a href="datepicker.html">انتخاب گر تاریخ </a></li>
 						<li><a href="timepicker.html">انتخاب گر زمان </a></li>
