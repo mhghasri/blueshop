@@ -58,6 +58,7 @@ def products_edit(request, **kwargs):
         discount = request.POST.get('discount')
         special_sells = request.POST.get('special_sells')
         is_available = request.POST.get('is_available')
+        description = request.POST.get('description')
 
         image_1 = request.FILES.get('image_1')
         image_2 = request.FILES.get('image_2')
