@@ -136,7 +136,7 @@ class Package(models.Model):
     price = models.IntegerField()
     final_price = models.IntegerField()
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="product_package")
-    suppliers = models.ManyToManyField(Supplier, related_name="supplier_package")
+    suppliers = models.ForeignKey(Supplier, on_delete=models.CASCADE, related_name="supplier_package")
 
     def save(self, *args, **kwargs):
         self.final_price = int(self.price - (self.price * self.product.discount / 100))
