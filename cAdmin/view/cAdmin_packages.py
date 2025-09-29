@@ -1,6 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from products.models import Product, Supplier, Package
 
+
+# *------------- create package -------------* #
 def create_packages(request):
 
     products = Product.objects.values_list('pk', 'title').order_by('-created_at')
@@ -40,4 +42,57 @@ def create_packages(request):
         )
 
 
-    return render(request, "cAdmin_package/package.html", context)
+    return render(request, "cAdmin_package/create_package.html", context)
+
+# *------------- end create package -------------* #
+
+# *------------- packages -------------* #
+
+def packages(request):
+    products_data = Product.objects.all().order_by('-created_at')
+
+    context = {
+        "products_data" : products_data,
+    }
+
+    return render(request, "cAdmin_package/packages.html", context)
+
+# *------------- end packages -------------* #
+
+# *------------- product_packages -------------* #
+
+def product_packages(request, **kwargs):
+
+    product = get_object_or_404(Product.objects.prefetch_related('product_package', 'suppliers'), pk=kwargs['pk'])
+
+    packages = []
+
+    for pkg in product.product_package.all():
+        final_price = int(pkg.price - (pkg.price * product.discount / 100))
+
+        packages.append({
+            'package' : pkg,
+            'final_price' : final_price
+        })
+
+    context = {
+        'product' :product,
+        'packages' : packages
+    }
+
+    return render(request, "cAdmin_package/product_package.html", context)
+
+# *------------- end product_packages -------------* #
+
+# *------------- product_package_edit -------------* #
+
+def edit_product_package(request, **kwargs):
+
+    package = get_object_or_404(Package.objects.prefetch_related('product', 'suppliers'), pk=kwargs['pk'])
+
+    context = {
+        'package' : package,
+    }
+
+    return render(request, "cAdmin_package/edit_product_package.html", context)
+# *------------- end product_package_edit -------------* #

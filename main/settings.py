@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'jazzmin',
+    "django_ckeditor_5",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,6 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'products',
     'cAdmin',
+    'articles',
+    'banners',
+    'contactus'
 ]
 
 MIDDLEWARE = [
@@ -137,3 +141,48 @@ MEDIA_ROOT = BASE_DIR / 'uploads'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# chekditor
+
+CKEDITOR_UPLOAD_PATH  = 'ckeditor'
+
+CKEDITOR_5_CONFIGS = {
+    "default": {
+        "toolbar": {
+            "items": [
+                "heading", "|",
+                "bold", "italic", "underline", "strikethrough", "removeFormat", "|",
+                "fontSize", "fontFamily", "fontColor", "fontBackgroundColor", "highlight", "|",
+                "link", "blockQuote", "code", "codeBlock", "horizontalLine", "|",
+                "bulletedList", "numberedList", "todoList", "outdent", "indent", "alignment", "|",
+                "insertTable", "imageUpload", "mediaEmbed", "|",
+                "specialCharacters", "findAndReplace", "selectAll", "showBlocks", "fullScreen"
+            ],
+            "shouldNotGroupWhenFull": True,
+        },
+        "language": "fa",
+        "heading": {
+            "options": [
+                {"model": "paragraph", "title": "Paragraph", "class": "ck-heading_paragraph"},
+                {"model": "heading1", "view": "h1", "title": "Heading 1", "class": "ck-heading_heading1"},
+                {"model": "heading2", "view": "h2", "title": "Heading 2", "class": "ck-heading_heading2"},
+                {"model": "heading3", "view": "h3", "title": "Heading 3", "class": "ck-heading_heading3"},
+            ]
+        },
+        "list": { "properties": { "styles": True, "startIndex": True, "reversed": True } },
+        "image": {
+            "toolbar": [
+                "imageTextAlternative", "|",
+                "imageStyle:alignLeft", "imageStyle:alignCenter",
+                "imageStyle:alignRight", "imageStyle:side"
+            ],
+            "styles": ["full", "side", "alignLeft", "alignRight", "alignCenter"],
+        },
+        "table": {
+            "contentToolbar": ["tableColumn", "tableRow", "mergeTableCells", "tableProperties", "tableCellProperties"],
+        },
+    }
+}
+
+CKEDITOR_5_FILE_UPLOAD_PERMISSION = "staff"

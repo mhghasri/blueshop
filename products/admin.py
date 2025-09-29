@@ -53,8 +53,6 @@ class PackagesAdmin(admin.ModelAdmin):
         ("Price", {'fields' : ("price", )}),
     ]
 
-    filter_vertical = ("suppliers", )
-
 # ----------- Supplier ----------- #
 
 class SupplierAdmin(admin.ModelAdmin):
