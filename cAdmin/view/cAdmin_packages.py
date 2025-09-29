@@ -21,20 +21,23 @@ def create_packages(request):
         product_id = request.POST.get('product_pk')
         product_obj = None
 
-        selected_supplier_id = request.POST.getlist('supplier_pk')
+        supplier_id = request.POST.getlist('supplier_pk')
+        supplier_obj = None
 
         # make object
         product = Product.objects.get(pk=int(product_id))
         product_obj = product
+
+        supplier = Supplier.objects.get(pk=int(supplier_id))
+        supplier_obj = supplier
 
         product = Package.objects.create(
             color_hex = color_hex,
             color_name = color_name,
             price = int(price),
             product = product_obj,
+            supplier = supplier_obj
         )
-
-        product.suppliers.set(selected_supplier_id)
 
 
     return render(request, "cAdmin_package/package.html", context)
