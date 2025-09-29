@@ -25,9 +25,9 @@ def about_us(request):
 
     # ----- filters ----- # 
 
-    telegram = links.get(title='telegram')
+    telegram = links.filter(title='telegram')
 
-    instagram = links.get(title='instagram')
+    instagram = links.filter(title='instagram')
 
     context = {
         'about_us' : about_us,
