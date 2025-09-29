@@ -90,9 +90,48 @@ def edit_product_package(request, **kwargs):
 
     package = get_object_or_404(Package.objects.prefetch_related('product', 'suppliers'), pk=kwargs['pk'])
 
+    suppliers = package.product.suppliers.all().exclude(pk=package.suppliers.pk)
+
     context = {
         'package' : package,
+        'suppliers' : suppliers
     }
+
+    if request.POST:
+
+        update_field = {}
+
+        color_name = request.POST.get('color_name')
+        price = request.POST.get('price')
+        color_hex = request.POST.get('color_hex')
+
+        supplier_pk = request.POST.get('supplier_pk')
+        supplier_obj = None
+
+        # make object
+
+        supplier = Supplier.objects.get(pk=int(supplier_pk))
+        supplier_obj = supplier
+
+        if color_name != package.color_name:
+            update_field['color_name'] = color_name
+
+        if int(price) != package.price:
+            update_field['price'] = int(price)
+
+        if color_hex != package.color_hex:
+            update_field['color_hex'] = color_hex
+
+        if int(supplier_pk) != package.suppliers.pk :
+            update_field['suppliers'] = supplier_obj
+
+        for field, value in update_field.items():
+            setattr(package, field, value)
+
+        package.save()
+
+        if update_field:
+            return redirect ('cadmin_product_packages', pk=package.product.pk, slug=package.product.slug)
 
     return render(request, "cAdmin_package/edit_product_package.html", context)
 # *------------- end product_package_edit -------------* #

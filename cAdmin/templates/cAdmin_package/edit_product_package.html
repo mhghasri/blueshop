@@ -68,7 +68,7 @@
                             </div>
                         </div>
                     </div>
-                    <input type="hidden" name="color_hex" id="hiddenColor" value="#000000">
+                    <input type="hidden" name="color_hex" id="hiddenColor" value="{{ package.color_hex }}">
                     <div class="col-md-6">
                         <div class="card mt-3">
                             <div class="card-body">
@@ -90,8 +90,8 @@
                                 <div class="form-group mb-3">
                                     <label for="supplier_pk">انتخاب تامین کننده:</label>
                                     <select name="supplier_pk" id="supplier_pk" class="form-control" required>
-                                        <option value="{{ package.suppliers.first.pk }}" disabled selected>{{ package.suppliers.first.title }}</option>
-                                        {% for supplier in package.product.suppliers.all %}
+                                        <option value="{{ package.suppliers.pk }}"selected>{{ package.suppliers.title }}</option>
+                                        {% for supplier in suppliers %}
                                         <option value="{{ supplier.pk }}">{{ supplier.title }}</option>
                                         {% endfor %}
                                     </select>
