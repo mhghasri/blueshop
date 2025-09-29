@@ -124,7 +124,7 @@
                     </div>
                 </div>
                 <!-- Logo -->
-                <a href="index.html" class="flex flex-col text-center ml-20">
+                <a href="{% url 'index' %}" class="flex flex-col text-center ml-20">
                     <span class="font-MorabbaMedium text-4xl flex items-center">
                         <span class="text-blue-500">کارین</span> شاپ
                     </span>
@@ -143,7 +143,7 @@
                     </button>
                     <!-- Account Btn -->
                     <button class="group relative flex-center py-2 px-4 app-border rounded-full app-hover delay-75">
-                        <a href="dashboard.html"  class="flex items-center gap-x-1">
+                        <a href="{% url "cadmin_product" %}"  class="flex items-center gap-x-1">
                             <svg class="size-5">
                                 <use href="#user" />
                             </svg>
@@ -299,7 +299,7 @@
                 <!-- MENU -->
                 <ul class="flex items-center gap-x-8">
                     <li class="menu-item">
-                        <a href="index.html" class="menu-item_link">
+                        <a href="{% url 'index' %}" class="menu-item_link">
                             صفحه اصلی
                         </a>
                     </li>
@@ -354,7 +354,7 @@
                             </ul>
 
                             <div class="megamenu_left">
-                               <a href="shop.html" class="text-blue-400 flex items-center gap-x-0.5 text-sm mb-4">
+                               <a href="{% url 'products' %}" class="text-blue-400 flex items-center gap-x-0.5 text-sm mb-4">
                                 مشاهده همه
                                 <svg class="size-4 rotate-90">
                                     <use href="#chevron" />
@@ -364,101 +364,101 @@
                                    <div class="megamenu_left-menu">
                                     <h2 class="megamenu_left-title">برندهای مختلف :</h2>
                                     <li>
-                                        <a href="shop.html">گوشی آیفون</a>
+                                        <a href="{% url 'products' %}">گوشی آیفون</a>
                                     </li>
                                     <li>
-                                        <a href="shop.html">گوشی سامسونگ</a>
+                                        <a href="{% url 'products' %}">گوشی سامسونگ</a>
                                     </li>
                                     <li>
-                                        <a href="shop.html">گوشی هواووی</a>
+                                        <a href="{% url 'products' %}">گوشی هواووی</a>
                                     </li>
                                     <li>
-                                        <a href="shop.html">گوشی شیامی</a>
+                                        <a href="{% url 'products' %}">گوشی شیامی</a>
                                     </li>
                                     <li>
-                                        <a href="shop.html">گوشی نوکیا</a>
+                                        <a href="{% url 'products' %}">گوشی نوکیا</a>
                                     </li>
                                     <li>
-                                        <a href="shop.html">گوشی آنر</a>
+                                        <a href="{% url 'products' %}">گوشی آنر</a>
                                     </li>
                                     <li>
-                                        <a href="shop.html">گوشی آیفون</a>
+                                        <a href="{% url 'products' %}">گوشی آیفون</a>
                                     </li>
                                    </div>
                                    <div class="megamenu_left-menu">
                                     <h2 class="megamenu_left-title">گوشی بر اساس قیمت</h2>
-                                    <li><a href="shop.html">گوشی ارزان</a></li>
-                                    <li><a href="shop.html">گوشی موبایل قسطی</a></li>
-                                    <li><a href="shop.html">گوشی تا ۲ میلیون تومان</a></li>
-                                    <li><a href="shop.html">گوشی تا ۵ میلیون تومان</a></li>
-                                    <li><a href="shop.html">گوشی تا ۷ میلیون تومان</a></li>
-                                    <li><a href="shop.html">گوشی تا ۱۵ میلیون تومان</a></li>
-                                    <li><a href="shop.html">گوشی بالای ۱۵ میلیون تومان</a></li>
+                                    <li><a href="{% url 'products' %}">گوشی ارزان</a></li>
+                                    <li><a href="{% url 'products' %}">گوشی موبایل قسطی</a></li>
+                                    <li><a href="{% url 'products' %}">گوشی تا ۲ میلیون تومان</a></li>
+                                    <li><a href="{% url 'products' %}">گوشی تا ۵ میلیون تومان</a></li>
+                                    <li><a href="{% url 'products' %}">گوشی تا ۷ میلیون تومان</a></li>
+                                    <li><a href="{% url 'products' %}">گوشی تا ۱۵ میلیون تومان</a></li>
+                                    <li><a href="{% url 'products' %}">گوشی بالای ۱۵ میلیون تومان</a></li>
                                    </div>
                                    <div class="megamenu_left-menu">
                                     <h2 class="megamenu_left-title">لوازم جانبی موبایل</h2>
-                                    <li><a href="shop.html">شارژر گوشی</a></li>
-                                    <li><a href="shop.html">شارژر وایرلس</a></li>
-                                    <li><a href="shop.html">قاب و کاور گوشی</a></li>
-                                    <li><a href="shop.html">گلس گوشی</a></li>
-                                    <li><a href="shop.html">هولدر گوشی موبایل</a></li>
-                                    <li><a href="shop.html">کابل شارژ و مبدل</a></li>
-                                    <li><a href="shop.html">پاوربانک (شارژر همراه)</a></li>
+                                    <li><a href="{% url 'products' %}">شارژر گوشی</a></li>
+                                    <li><a href="{% url 'products' %}">شارژر وایرلس</a></li>
+                                    <li><a href="{% url 'products' %}">قاب و کاور گوشی</a></li>
+                                    <li><a href="{% url 'products' %}">گلس گوشی</a></li>
+                                    <li><a href="{% url 'products' %}">هولدر گوشی موبایل</a></li>
+                                    <li><a href="{% url 'products' %}">کابل شارژ و مبدل</a></li>
+                                    <li><a href="{% url 'products' %}">پاوربانک (شارژر همراه)</a></li>
                                    </div>
                             
                                 </ul>
                                 <ul class="megamenu_left-item ">
                                     <div class="megamenu_left-menu">
                                         <h2 class="megamenu_left-title">برندهای مختلف :</h2>
-                                        <li><a href="shop.html">لپ‌تاپ اپل (MacBook)</a></li>
-                                        <li><a href="shop.html">لپ‌تاپ ایسوس</a></li>
-                                        <li><a href="shop.html">لپ‌تاپ لنوو</a></li>
-                                        <li><a href="shop.html">لپ‌تاپ اچ‌پی</a></li>
-                                        <li><a href="shop.html">لپ‌تاپ دل</a></li>
-                                        <li><a href="shop.html">لپ‌تاپ ام‌اس‌آی</a></li>
-                                        <li><a href="shop.html">لپ‌تاپ ایسر</a></li>
+                                        <li><a href="{% url 'products' %}">لپ‌تاپ اپل (MacBook)</a></li>
+                                        <li><a href="{% url 'products' %}">لپ‌تاپ ایسوس</a></li>
+                                        <li><a href="{% url 'products' %}">لپ‌تاپ لنوو</a></li>
+                                        <li><a href="{% url 'products' %}">لپ‌تاپ اچ‌پی</a></li>
+                                        <li><a href="{% url 'products' %}">لپ‌تاپ دل</a></li>
+                                        <li><a href="{% url 'products' %}">لپ‌تاپ ام‌اس‌آی</a></li>
+                                        <li><a href="{% url 'products' %}">لپ‌تاپ ایسر</a></li>
                                     </div>
                                     
                                     <div class="megamenu_left-menu">
                                         <h2 class="megamenu_left-title">لپ‌تاپ بر اساس قیمت</h2>
-                                        <li><a href="shop.html">لپ‌تاپ اقتصادی</a></li>
-                                        <li><a href="shop.html">لپ‌تاپ تا ۱۰ میلیون تومان</a></li>
-                                        <li><a href="shop.html">لپ‌تاپ تا ۲۰ میلیون تومان</a></li>
-                                        <li><a href="shop.html">لپ‌تاپ تا ۳۰ میلیون تومان</a></li>
-                                        <li><a href="shop.html">لپ‌تاپ تا ۵۰ میلیون تومان</a></li>
-                                        <li><a href="shop.html">لپ‌تاپ بالای ۵۰ میلیون تومان</a></li>
+                                        <li><a href="{% url 'products' %}">لپ‌تاپ اقتصادی</a></li>
+                                        <li><a href="{% url 'products' %}">لپ‌تاپ تا ۱۰ میلیون تومان</a></li>
+                                        <li><a href="{% url 'products' %}">لپ‌تاپ تا ۲۰ میلیون تومان</a></li>
+                                        <li><a href="{% url 'products' %}">لپ‌تاپ تا ۳۰ میلیون تومان</a></li>
+                                        <li><a href="{% url 'products' %}">لپ‌تاپ تا ۵۰ میلیون تومان</a></li>
+                                        <li><a href="{% url 'products' %}">لپ‌تاپ بالای ۵۰ میلیون تومان</a></li>
                                     </div>
                                     
                                     <div class="megamenu_left-menu">
                                         <h2 class="megamenu_left-title">لوازم جانبی لپ‌تاپ</h2>
-                                        <li><a href="shop.html">کیف و کوله لپ‌تاپ</a></li>
-                                        <li><a href="shop.html">کابل و آداپتور لپ‌تاپ</a></li>
-                                        <li><a href="shop.html">استند و پایه خنک‌کننده</a></li>
-                                        <li><a href="shop.html">ماوس و کیبورد</a></li>
-                                        <li><a href="shop.html">هارد اکسترنال و SSD</a></li>
-                                        <li><a href="shop.html">پد ماوس</a></li>
+                                        <li><a href="{% url 'products' %}">کیف و کوله لپ‌تاپ</a></li>
+                                        <li><a href="{% url 'products' %}">کابل و آداپتور لپ‌تاپ</a></li>
+                                        <li><a href="{% url 'products' %}">استند و پایه خنک‌کننده</a></li>
+                                        <li><a href="{% url 'products' %}">ماوس و کیبورد</a></li>
+                                        <li><a href="{% url 'products' %}">هارد اکسترنال و SSD</a></li>
+                                        <li><a href="{% url 'products' %}">پد ماوس</a></li>
                                     </div>
                                     
                                 </ul>
                                 <ul class="megamenu_left-item">
                                     <div class="megamenu_left-menu">
                                         <h2 class="megamenu_left-title">برندهای مختلف تبلت</h2>
-                                        <li><a href="shop.html">تبلت اپل (iPad)</a></li>
-                                        <li><a href="shop.html">تبلت سامسونگ</a></li>
-                                        <li><a href="shop.html">تبلت لنوو</a></li>
-                                        <li><a href="shop.html">تبلت مایکروسافت (Surface)</a></li>
-                                        <li><a href="shop.html">تبلت هواوی</a></li>
-                                        <li><a href="shop.html">تبلت شیائومی</a></li>
+                                        <li><a href="{% url 'products' %}">تبلت اپل (iPad)</a></li>
+                                        <li><a href="{% url 'products' %}">تبلت سامسونگ</a></li>
+                                        <li><a href="{% url 'products' %}">تبلت لنوو</a></li>
+                                        <li><a href="{% url 'products' %}">تبلت مایکروسافت (Surface)</a></li>
+                                        <li><a href="{% url 'products' %}">تبلت هواوی</a></li>
+                                        <li><a href="{% url 'products' %}">تبلت شیائومی</a></li>
                                     </div>
                                     
                                     <div class="megamenu_left-menu">
                                         <h2 class="megamenu_left-title">لوازم جانبی تبلت</h2>
-                                        <li><a href="shop.html">کیف و کاور تبلت</a></li>
-                                        <li><a href="shop.html">قلم لمسی</a></li>
-                                        <li><a href="shop.html">کیبورد و استند</a></li>
-                                        <li><a href="shop.html">گلس و محافظ صفحه</a></li>
-                                        <li><a href="shop.html">کابل و شارژر</a></li>
-                                        <li><a href="shop.html">پاوربانک</a></li>
+                                        <li><a href="{% url 'products' %}">کیف و کاور تبلت</a></li>
+                                        <li><a href="{% url 'products' %}">قلم لمسی</a></li>
+                                        <li><a href="{% url 'products' %}">کیبورد و استند</a></li>
+                                        <li><a href="{% url 'products' %}">گلس و محافظ صفحه</a></li>
+                                        <li><a href="{% url 'products' %}">کابل و شارژر</a></li>
+                                        <li><a href="{% url 'products' %}">پاوربانک</a></li>
                                     </div>
                                     
                                 </ul>
@@ -476,7 +476,7 @@
                     </li>
 
                     <li class="menu-item">
-                        <a href="shop.html" class="menu-item_link">
+                        <a href="{% url 'products' %}" class="menu-item_link">
                             فروشگاه
                         </a>
                     </li>
@@ -510,13 +510,13 @@
                                 </svg>
                                 <ul class="solid-submenu">
                                     <li>
-                                        <a href="shop.html">فروشگاه</a>
+                                        <a href="{% url 'products' %}">فروشگاه</a>
                                     </li>
                                     <li>
                                         <a href="product-details.html">جزئیات محصول</a>
                                     </li>
                                     <li>
-                                        <a href="dashboard.html">پنل کاربری</a>
+                                        <a href="{% url "cadmin_product" %}">پنل کاربری</a>
                                     </li>
                                     <li>
                                         <a href="shopping-cart.html">سبد خرید</a>
@@ -622,7 +622,7 @@
                 <div class="mobile-menu z-50 flex flex-col">
                     <!--  MENU MOBILE header -->
                     <div class="flex w-full items-center justify-between border-b-normal pb-4">
-                        <a href="index.html" class="text-xl font-MorabbaMedium">
+                        <a href="{% url 'index' %}" class="text-xl font-MorabbaMedium">
                             <span class="text-blue-500">کارین</span> شاپ
                         </a>
                         <button class="close-menu-mobile">
@@ -921,7 +921,7 @@
                             <svg class="size-5">
                                 <use href="#user" />
                             </svg>
-                            <a href="dashboard.html">حساب کاربری</a>
+                            <a href="{% url "cadmin_product" %}">حساب کاربری</a>
                         </li>
                         <li class="mobile-menu-item">
                             <svg class="size-5">
@@ -950,7 +950,7 @@
                     </ul>
                 </div>
                 <!-- Logo -->
-                <a href="index.html" class="flex flex-col text-center">
+                <a href="{% url 'index' %}" class="flex flex-col text-center">
                     <span class="font-MorabbaMedium text-3xl flex items-center">
                         <span class="text-blue-500">کارین</span> شاپ
                     </span>
@@ -1061,13 +1061,13 @@
                     <svg class="size-5">
                         <use href="#home" />
                     </svg>
-                    <a href="index.html">خانه</a>
+                    <a href="{% url 'index' %}">خانه</a>
                 </li>
                 <li>
                     <svg class="size-5">
                         <use href="#squares" />
                     </svg>
-                    <a href="shop.html">فروشگاه</a>
+                    <a href="{% url 'products' %}">فروشگاه</a>
                 </li>
                 <li>
                     <svg class="size-5">
@@ -1079,7 +1079,7 @@
                     <svg class="size-5">
                         <use href="#user" />
                     </svg>
-                    <a href="dashboard.html">حساب من</a>
+                    <a href="{% url "cadmin_product" %}">حساب من</a>
                 </li>
             </ul>
         </div>
@@ -1128,10 +1128,10 @@
                     <div class="flex gap-x-10 child:space-y-2 child:text-gray-400">
                         <ul class="child-hover:text-blue-500 child:transition-all">
                             <li>
-                                <a href="index.html">صفحه اصلی</a>
+                                <a href="{% url 'index' %}">صفحه اصلی</a>
                             </li>
                             <li>
-                                <a href="shop.html">فروشگاه</a>
+                                <a href="{% url 'products' %}">فروشگاه</a>
                             </li>
                             <li>
                                 <a href="contact-us.html">تماس با ما </a>
