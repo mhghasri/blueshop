@@ -9,6 +9,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name="index"),
     path('', include("products.urls")),
+    path('', include('articles.urls')),
     path('cadmin/', include("cAdmin.urls"))
 ]
 
