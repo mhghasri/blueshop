@@ -23,7 +23,7 @@ def create_packages(request):
         product_id = request.POST.get('product_pk')
         product_obj = None
 
-        supplier_id = request.POST.getlist('supplier_pk')
+        supplier_id = request.POST.get('supplier_pk')
         supplier_obj = None
 
         # make object
@@ -38,7 +38,7 @@ def create_packages(request):
             color_name = color_name,
             price = int(price),
             product = product_obj,
-            supplier = supplier_obj
+            suppliers = supplier_obj
         )
 
 

@@ -160,8 +160,10 @@ def product_detail(request, **kwargs):
 
     discounted_product = products.filter(discount__gt = 0).exclude(pk=product.id)
 
-    packages_by_color = defaultdict(list)
-    for p in product.product_package.all():
+    product_package_qs = product.product_package.select_related('suppliers').all()      # for get supplers for dropdown
+
+    packages_by_color = defaultdict(list)           # handle error when a list doesnt have a key
+    for p in product_package_qs:
         packages_by_color[p.color_name].append(p)
 
     context = {

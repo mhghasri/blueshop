@@ -1245,7 +1245,7 @@
                     {% for p in packages_group %}
                     {
                         price: {{ p.final_price }},
-                        supplier: "{{ p.suppliers.all.0.title|escapejs }}",
+                        supplier: "{{ p.suppliers.title|escapejs }}",
                         color: "{{ p.color_name|escapejs }}"
                     }{% if not forloop.last %},{% endif %}
                     {% endfor %}
