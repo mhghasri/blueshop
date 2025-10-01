@@ -437,10 +437,10 @@
 						<li><a href="popovers.html">پاپ اور </a></li>
 					</ul>
 				</li>
-				<li class="open">
-					<a href="#">فرم ها</a>
+				<li class="{% if request.resolver_match.url_name in 'cadmin_product cadmin_product_edit cadmin_create_product cadmin_packages cadmin_create_packages cadmin_create_brand' %}open{% endif %}">
+					<a href="#">محصولات</a>
 					<ul>
-						<li><a href="{% url 'cadmin_product' %}" {% if request.resolver_match.url_name == 'cadmin_product' or request.resolver_match.url_name == 'cadmin_product_edit' or request.resolver_match.url_name == 'cadmin_create_product' %}class="active"{% endif %}>{% if request.resolver_match.url_name == 'cadmin_create_product' %}محصول جدید{% else %}محصولات{% endif %}</a></li>
+						<li><a href="{% url 'cadmin_product' %}" {% if request.resolver_match.url_name == 'cadmin_product' or request.resolver_match.url_name == 'cadmin_product_edit' or request.resolver_match.url_name == 'cadmin_create_product' %}class="active"{% endif %}>{% if request.resolver_match.url_name == 'cadmin_create_product' %}محصول جدید{% else %}لیست محصولات{% endif %}</a></li>
 						<li><a href="{% url 'cadmin_packages' %}" {% if request.resolver_match.url_name == 'cadmin_create_packages' or request.resolver_match.url_name == 'cadmin_packages' %}class="active"{% endif %}>{% if request.resolver_match.url_name == 'cadmin_create_packages' %}پکیج جدید{% else %}پکیج ها{% endif %}</a></li>
 						<li><a href="{% url 'cadmin_create_brand' %}" {% if request.resolver_match.url_name == 'cadmin_create_brand' %}class="active"{% endif %}>دسته بندی های جدید</a></li>
 						{% comment %} <li><a href="advanced-form.html">فرم پیشرفته </a></li>
@@ -456,6 +456,12 @@
 								<li><a href="ckeditor-inline.html">ویرایشگر درون خطی </a></li>
 							</ul>
 						</li>
+					</ul>
+				</li>
+				<li class="{% if request.resolver_match.url_name in 'cadmin_articles cadmin_new_article cadmin_edit_article' %}open{% endif %}">
+					<a href="#">مقالات</a>
+					<ul>
+						<li><a href="{% url 'cadmin_articles' %}" {% if request.resolver_match.url_name == 'cadmin_articles' %}class="active"{% endif %}>لیست مقالات</a></li>
 					</ul>
 				</li>
 				<li>

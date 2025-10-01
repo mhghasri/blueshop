@@ -1,0 +1,73 @@
+{% extends "cadmin_core/base.html" %}
+{% load static %}
+{% load custom_filter %}
+
+{% block style %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+{% endblock style %}
+
+{% block breadcrumb %}
+	<div class="header-body-left">
+
+		<h3 class="page-title">لیست مقالات</h3>
+
+		<!-- begin::breadcrumb -->
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="#">داشبورد</a></li>
+				<li class="breadcrumb-item active" aria-current="page">مقالات</li>
+			</ol>
+		</nav>
+		<!-- end::breadcrumb -->
+
+	</div>
+{% endblock breadcrumb %}
+
+{% block main %}
+	<!-- begin::main content -->
+	<main class="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h6 class="h4 card-title mb-0">لیست مقالات</h6>
+                                <a href="{% url 'cadmin_new_article' %}" class="btn btn-success">ساخت مقاله جدید</a>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>ردیف</th>
+                                            <th>تایتل مقاله</th>
+                                            <th>عکس</th>
+                                            <th>نویسنده</th>
+                                            <th>بازدید</th>
+                                            <th>دسته بندی</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for article in articles %}
+                                        <tr>
+                                            <td>{{ forloop.counter }}</td>
+                                            <td class="text-muted h6"><a href="{% url 'cadmin_edit_article' article.pk article.slug %}">{{ article.title }}</a></td>
+                                            <td>
+                                                <a href="{% url 'cadmin_edit_article' article.pk article.slug %}"><img src="{{ article.image.url }}" alt="{{ article.title }}" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;"></a>
+                                            </td>
+                                            <td class="text-muted h6">{{ article.author.name }}</td>
+                                            <td class="text-muted h6">{{ article.views }}</td>
+                                            <td class="text-muted h6">{{ article.categories.last.name }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+	<!-- end::main content -->
+{% endblock main %}
