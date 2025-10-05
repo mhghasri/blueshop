@@ -12,7 +12,8 @@ urlpatterns = [
     path('', include("products.urls")),
     path('', include('articles.urls')),
     path('', include('contactus.urls')),
-    path('cadmin/', include("cAdmin.urls"))
+    path('cadmin/', include("cAdmin.urls")),
+    path('ajax_search', search_ajax)
 ]
 
 if settings.DEBUG:

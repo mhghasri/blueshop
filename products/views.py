@@ -35,7 +35,7 @@ def products(request, slug=None):
 
     # ---------- search ---------- #
 
-    search = request.GET.get("q")
+    search = request.POST.get("q")
 
     if search:
         products = products.filter(title__icontains=search)

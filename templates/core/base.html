@@ -38,7 +38,8 @@
                 <!-- Search Box -->
                 <div class="relative z-20">
                     <!-- INPUT -->
-                    <form method="get" action="">
+                    <form method="post" action="{% url "products" %}" id="form-search">
+                        {% csrf_token %}
                         <div class="search-btn-open flex gap-x-2 app-border bg-gray-50 dark:bg-gray-700 p-1 rounded-full ring-blue-400 w-84 transition-all">
                             <button type="submit"
                                 class="flex-center text-gray-100 bg-blue-600 rounded-full w-11 h-11 flex items-center justify-center">
@@ -47,6 +48,7 @@
                                 </svg>
                             </button>
                             <input
+                                id="input-search"
                                 type="text"
                                 name="q"
                                 placeholder="جستجو در بلو..."
@@ -59,43 +61,10 @@
                         <!-- Result -->
                         <div>
                             <span class="flex items-center text-sm gap-x-1 text-gray-600 dark:text-gray-200">
-                                <p>نتیجه جستجو : <span class="font-DanaMedium text-blue-400">iphone</span></p>
+                                <p>نتیجه جستجو : <span class="font-DanaMedium text-blue-400"></span></p>
                             </span>
-                            <ul
-                                class="pt-4 text-gray-500 dark:text-gray-300 flex flex-col gap-y-4 child:flex-between child:cursor-pointer">
-                                <li>
-                                    <a href="#" class="flex items-center gap-x-2">
-                                        <svg class="size-5">
-                                            <use href="#search" />
-                                        </svg>
-                                        آیفون 14
-                                    </a>
-                                    <svg class="size-4">
-                                        <use href="#arrow-up-right" />
-                                    </svg>
-                                </li>
-                                <li>
-                                    <a href="#" class="flex items-center gap-x-2">
-                                        <svg class="size-5">
-                                            <use href="#search" />
-                                        </svg>
-                                        قاب آیفون
-                                    </a>
-                                    <svg class="size-4">
-                                        <use href="#arrow-up-right" />
-                                    </svg>
-                                </li>
-                                <li>
-                                    <a href="#" class="flex items-center gap-x-2">
-                                        <svg class="size-5">
-                                            <use href="#search" />
-                                        </svg>
-                                        کاور ایفون 16
-                                    </a>
-                                    <svg class="size-4">
-                                        <use href="#arrow-up-right" />
-                                    </svg>
-                                </li>
+                            <ul id="result-search" class="pt-4 text-gray-500 dark:text-gray-300 flex flex-col gap-y-4 child:flex-between child:cursor-pointer">
+                                
                             </ul>
                         </div>
                         <!-- Trend -->
@@ -1217,7 +1186,10 @@
     <div class="overlay"></div>
     <div class="search-overlay"></div>
 
-   <script src="{% static 'main/scripts/app.js' %}"></script>
+    <script src="{% static 'main/scripts/app.js' %}"></script>
+    <script src="{% static 'cadmin/vendors/bundle.js' %}"></script>
+    <script src="{% static 'main/custom_scripts/custom_ajax.js' %}"></script>
+
    {% block js %}{% endblock js %}
 </body>
 
