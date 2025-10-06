@@ -196,7 +196,7 @@
 					<div class="col-md-12">
 						<div class='col-md-12'>
 							<hr>
-							<h6 class="card-title h5 text-warning text-center mt-1 mb-3">در صورت تغییر در گالری و ویژگی همه موارد پاک میشوند باید از نو همه را تنظیم نمایید</h6>
+							<h6 class="card-title h5 text-warning text-center mt-1 mb-3">در صورت تغییر در گالری تصاویر همه موارد پاک میشوند باید از نو همه را تنظیم نمایید</h6>
 							<hr>
 						</div>
 						<div class="row d-flex align-items-stretch mb-5 mt-4">
@@ -205,12 +205,14 @@
 									<div class="card-body">
 										<h6 class="card-title">گالری تصاویر</h6>
 										<div id="gallery-container">
-											<div class="form-group">
-												<label>تصویر گالری</label>
-												<input name="gallery_images" type="file" class="d-none gallery-image-input" id="gallery-image-0" accept="image/jpeg, image/png, image/webp">
-												<label class="btn btn-primary" for="gallery-image-0">انتخاب تصویر</label>
-												<span class="ml-2 text-muted file-name">فایلی انتخاب نشده</span>
-											</div>
+											{% for image in imagegallery %}
+												<div class="form-group">
+													<label>تصویر گالری</label>
+													<input name="gallery_images" type="file" class="d-none gallery-image-input" id="gallery-image-0" accept="image/jpeg, image/png, image/webp">
+													<label class="btn btn-primary" for="gallery-image-0">انتخاب تصویر</label>
+													<img src="{{ image.image.url }}" alt="{{ product.title }}" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
+												</div>
+											{% endfor %}
 										</div>
 										<hr>
 										<button type="button" class="btn btn-primary mt-3 btn-block" id="add-gallery-image">افزودن تصویر گالری</button>
@@ -222,14 +224,16 @@
 									<div class="card-body">
 										<h6 class="card-title">ویژگی‌های محصول</h6>
 										<div id="attribute-container">
-											<div class="form-row mb-2">
-												<div class="col">
-													<input type="text" name="attribute_titles" class="form-control" placeholder="عنوان (مثلاً پردازنده)">
+											{% for atr in attributes %}
+												<div class="form-row mb-2">
+													<div class="col">
+														<input value="{{ atr.title }}" type="text" name="attribute_titles" class="form-control" placeholder="عنوان (مثلاً پردازنده)">
+													</div>
+													<div class="col">
+														<input value="{{ atr.value }}" type="text" name="attribute_values" class="form-control" placeholder="مقدار (مثلاً i7)">
+													</div>
 												</div>
-												<div class="col">
-													<input type="text" name="attribute_values" class="form-control" placeholder="مقدار (مثلاً i7)">
-												</div>
-											</div>
+											{% endfor %}
 										</div>
 										<hr>
 										<button type="button" class="btn btn-primary mt-3 btn-block" id="add-attribute">افزودن ویژگی</button>
