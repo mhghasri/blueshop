@@ -1,16 +1,16 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from products.models import Product, Supplier, Package
-
+from django.http import JsonResponse
 
 # *------------- create package -------------* #
-def create_packages(request):
+def create_packages(request, **kwargs):
 
-    products = Product.objects.values_list('pk', 'title').order_by('-created_at')
+    product = get_object_or_404(Product.objects.prefetch_related('suppliers'), pk=kwargs['pk'])
 
-    suppliers = Supplier.objects.values_list('pk', 'title')
+    suppliers = product.suppliers.values_list('pk', 'title')
 
     context = {
-        'products' : products,
+        'product' : product,
         'suppliers' : suppliers
     }
 
@@ -20,14 +20,12 @@ def create_packages(request):
         price = request.POST.get('price')
 
         # get id
-        product_id = request.POST.get('product_pk')
-        product_obj = None
 
         supplier_id = request.POST.get('supplier_pk')
         supplier_obj = None
 
         # make object
-        product = Product.objects.get(pk=int(product_id))
+        product = product
         product_obj = product
 
         supplier = Supplier.objects.get(pk=int(supplier_id))
@@ -135,3 +133,16 @@ def edit_product_package(request, **kwargs):
 
     return render(request, "cAdmin_package/edit_product_package.html", context)
 # *------------- end product_package_edit -------------* #
+
+# *------------- start ajax_pacakage_supplier -------------* #
+
+def ajax_package_supplier(request):
+    product_package_id = request.POST.get("product_pk")
+
+    product = Product.objects.get(pk=product_package_id)
+
+    suppliers = list(product.suppliers.values_list('pk', 'title'))
+
+    return JsonResponse(suppliers, status=200, safe=False)
+
+# *------------- end ajax_pacakage_supplier -------------* #

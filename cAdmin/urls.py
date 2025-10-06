@@ -1,4 +1,4 @@
-from . view.cAdmin_packages import create_packages, packages, product_packages, edit_product_package
+from . view.cAdmin_packages import create_packages, packages, product_packages, edit_product_package, ajax_package_supplier
 from . view.cAdmin_products import create_product, products, products_edit
 from . view.cAdmin_articles import articles, article_edit, create_article
 from django.urls import path, register_converter
@@ -28,11 +28,15 @@ urlpatterns = [
     # *----- end create-brand -----* #
 
     # *----- create-packages-edit -----* #
-    path('create/package', create_packages, name="cadmin_create_packages"),
+    path('create/package/<int:pk>/<uslug:slug>', create_packages, name="cadmin_create_packages"),
     path('packages', packages, name="cadmin_packages"),
     path('product_packages/<int:pk>/<uslug:slug>', product_packages, name="cadmin_product_packages"),
     path('product_edit_package/<int:pk>/<uslug:slug>', edit_product_package, name="cadmin_product_edit_package"),
     # *----- end create-packages-edit -----* #
+    
+    # *----- start ajax-packages -----* #
+    path('package_ajax', ajax_package_supplier),
+    # *----- end ajax-packages -----* #
 
     # *----- create-articles-edit -----* #
     path('articles', articles, name='cadmin_articles'),
