@@ -39,6 +39,8 @@ def create_packages(request, **kwargs):
             suppliers = supplier_obj
         )
 
+        return redirect('cadmin_product_packages', pk=kwargs['pk'], slug=kwargs['slug'])
+
 
     return render(request, "cAdmin_package/create_package.html", context)
 
