@@ -142,11 +142,12 @@ class Package(models.Model):
         self.final_price = int(self.price - (self.price * self.product.discount / 100))
         super().save(*args, **kwargs)
 
-        min_price = self.product.product_package.aggregate(min=Min('final_price'))['min']
+        min_final_price = self.product.product_package.aggregate(min=Min('final_price'))['min']
+        min_price = self.product.product_package.aggregate(min=Min('price'))['min']
 
-        if min_price != None and min_price != self.product.final_price:
-            self.product.price = self.price
-            self.product.final_price = min_price
+        if min_final_price != None and min_final_price != self.product.final_price:
+            self.product.price = min_price
+            self.product.final_price = min_final_price
             self.product.save()
 
     def __str__(self):
